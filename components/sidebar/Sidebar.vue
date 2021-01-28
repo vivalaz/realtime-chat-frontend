@@ -1,39 +1,37 @@
 <template>
   <div class="sidebar">
-    <perfect-scrollbar>
-      <DialogItem :avatar="tmpAvatar"/>
-      <DialogItem/>
-      <DialogItem :avatar="tmpAvatar"/>
-      <DialogItem :avatar="tmpAvatar"/>
-      <DialogItem :avatar="tmpAvatar"/>
-      <DialogItem/>
-      <DialogItem/>
-      <DialogItem/>
-      <DialogItem/>
-      <DialogItem/>
-      <DialogItem/>
-      <DialogItem/>
-    </perfect-scrollbar>
+    <sidebar-dialog-view v-if="dialogViewIsVisible" />
+    <sidebar-settings-view v-else />
 
     <footer class="sidebar-footer">
-      <div>Настройки</div>
+      <div v-if="dialogViewIsVisible" @click="showSettings">
+        Настройки
+      </div>
+      <div v-else @click="showDialogs">
+        Диалоги
+      </div>
     </footer>
   </div>
 </template>
 
 <script>
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import DialogItem from '~/components/sidebar/DialogItem'
+import SidebarDialogView from '~/components/sidebar/SidebarDialogView'
+import SidebarSettingsView from '~/components/sidebar/SidebarSettingsView'
 
 export default {
   name: 'Sidebar',
-  components: {
-    DialogItem,
-    PerfectScrollbar
+  components: { SidebarSettingsView, SidebarDialogView },
+  computed: {
+    dialogViewIsVisible () {
+      return !this.$store.state.sidebar.settingsViewVisibility
+    }
   },
-  data () {
-    return {
-      tmpAvatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1hRAeN0O01QvaqoytXmojoOiSEzXf-Nxb3g&usqp=CAU'
+  methods: {
+    showSettings () {
+      return this.$store.dispatch('sidebar/showSettingsView')
+    },
+    showDialogs () {
+      return this.$store.dispatch('sidebar/showDialogsView')
     }
   }
 }
