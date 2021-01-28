@@ -25,6 +25,8 @@
           label="Подтвердите пароль"
         />
 
+        <pre>{{$v}}</pre>
+
         <ChatButton
 
         >
@@ -36,12 +38,40 @@
 </template>
 
 <script>
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+
 export default {
   data () {
     return {
       email: '',
       password: '',
       passwordConfirm: ''
+    }
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(8),
+      containsUppercase (value) {
+        return /[A-Z]/.test(value)
+      },
+      containsLowercase (value) {
+        return /[a-z]/.test(value)
+      },
+      containsNumber (value) {
+        return /[0-9]/.test(value)
+      },
+      containsSpecial (value) {
+        return /[#?!@$%^&*-]/.test(value)
+      }
+    },
+    passwordConfirm: {
+      required,
+      sameAsPassword: sameAs('password')
     }
   },
   methods: {
