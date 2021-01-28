@@ -34,6 +34,16 @@ export default {
   &:hover {
     background: #578ec9;
   }
+
+  &:disabled {
+    color: #afafaf;
+    background-color: #344452;
+    cursor: default;
+
+    &:hover {
+      background-color: #344452;
+    }
+  }
 }
 
 </style>

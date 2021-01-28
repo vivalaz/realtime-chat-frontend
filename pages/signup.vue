@@ -7,28 +7,29 @@
 
       <form class="signup-form" @submit.prevent="onSubmit">
         <InputWithLabel
-          v-model="email"
+          v-model.lazy="$v.email.$model"
           reference="email-input"
           type="email"
           label="Email"
+          :has-error="$v.email.$invalid"
         />
         <InputWithLabel
-          v-model="password"
+          v-model.lazy="$v.password.$model"
           reference="password-input"
           type="password"
           label="Пароль"
+          :has-error="$v.password.$invalid"
         />
         <InputWithLabel
-          v-model="passwordConfirm"
+          v-model.lazy="$v.passwordConfirm.$model"
           reference="password-confirm-input"
           type="password"
           label="Подтвердите пароль"
+          :has-error="$v.passwordConfirm.$invalid"
         />
 
-        <pre>{{$v}}</pre>
-
         <ChatButton
-
+          :disabled="$v.$anyError"
         >
           Зарегестрироваться
         </ChatButton>
@@ -64,9 +65,6 @@ export default {
       },
       containsNumber (value) {
         return /[0-9]/.test(value)
-      },
-      containsSpecial (value) {
-        return /[#?!@$%^&*-]/.test(value)
       }
     },
     passwordConfirm: {

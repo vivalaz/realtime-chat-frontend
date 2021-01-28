@@ -1,8 +1,16 @@
 <template>
-  <label class="labeled-input" :for="reference">
-    <span>{{ label }}</span>
-    <input :id="reference" v-model="localValue" :type="type">
-  </label>
+  <div class="label-container">
+    <label
+      class="labeled-input"
+      :class="{
+        'has-error': hasError
+      }"
+      :for="reference"
+    >
+      <span>{{ label }}</span>
+      <input :id="reference" v-model="localValue" :type="type">
+    </label>
+  </div>
 </template>
 
 <script>
@@ -23,7 +31,8 @@ export default {
       required: false,
       type: String,
       default: 'text'
-    }
+    },
+    hasError: Boolean
   },
   computed: {
     localValue: {
@@ -40,32 +49,43 @@ export default {
 
 <style scoped lang="scss">
 
-.labeled-input {
+.label-container {
   display: block;
   width: 100%;
   margin-bottom: 15px;
 
-  span {
+  .labeled-input {
     display: block;
-    margin-bottom: 5px;
-    font-size: 15px;
-    color: #fff;
-    font-weight: 500;
-  }
-
-  input {
     width: 100%;
-    border: none;
-    outline: none;
-    padding: 8px 10px;
-    border-radius: 2px;
-    background-color: #e7ebf0;
-    font-weight: 500;
-    font-size: 14px;
-    transition: background-color .35s ease;
 
-    &:focus {
-      background-color: #fff;
+    span {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 8px 10px;
+      border-radius: 2px;
+      background-color: #e7ebf0;
+      font-weight: 500;
+      font-size: 14px;
+      transition: background-color .35s ease;
+
+      &:focus {
+        background-color: #fff;
+      }
+    }
+
+    &.has-error {
+      input {
+        box-shadow: 0 0 8px 1px rgba(206, 98, 98, 1);
+      }
     }
   }
 }
