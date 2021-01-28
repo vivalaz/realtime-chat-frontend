@@ -3,7 +3,7 @@
     <perfect-scrollbar>
       <DialogItem :avatar="tmpAvatar"/>
       <DialogItem/>
-      <DialogItem :avatar="tmpAvatar" active/>
+      <DialogItem :avatar="tmpAvatar"/>
       <DialogItem :avatar="tmpAvatar"/>
       <DialogItem :avatar="tmpAvatar"/>
       <DialogItem/>
@@ -63,7 +63,6 @@ $sidebar-footer-height: 45px;
     position: relative;
     height: $sidebar-footer-height;
     width: 100%;
-    background-color: #3e5162;
     box-shadow: 0 0 27px 1px rgba(34, 45, 56, 1);
 
     div {
@@ -74,6 +73,7 @@ $sidebar-footer-height: 45px;
       height: 100%;
       color: #fff;
       font-weight: 300;
+      background-color: #3e5162;
       font-size: 14px;
       cursor: pointer;
       transition: background .35s ease;
