@@ -5,24 +5,51 @@
         Регистрация
       </h3>
 
-      <form class="signup-form">
-        <label for="email-input">
-          <span>Email</span>
-          <input id="email-input" type="email">
-        </label>
-        <label for="password-input">
-          <span>Пароль</span>
-          <input id="password-input" type="password">
-        </label>
+      <form class="signup-form" @submit.prevent="onSubmit">
+        <InputWithLabel
+          v-model="email"
+          reference="email-input"
+          type="email"
+          label="Email"
+        />
+        <InputWithLabel
+          v-model="password"
+          reference="password-input"
+          type="password"
+          label="Пароль"
+        />
+        <InputWithLabel
+          v-model="passwordConfirm"
+          reference="password-confirm-input"
+          type="password"
+          label="Подтвердите пароль"
+        />
 
-        <ChatButton disabled>Зарегестрироваться</ChatButton>
+        <ChatButton
+
+        >
+          Зарегестрироваться
+        </ChatButton>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      email: '',
+      password: '',
+      passwordConfirm: ''
+    }
+  },
+  methods: {
+    onSubmit () {
+      alert('Submit')
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -37,6 +64,7 @@ export default {}
   align-items: center;
 
   .title {
+    margin-bottom: 8px;
     font-size: 25px;
     color: #313e4c;
   }
@@ -52,36 +80,6 @@ export default {}
     padding: 30px 15px 15px 15px;
     background-color: #313e4c;
     border-radius: 5px;
-
-    label {
-      display: block;
-      width: 100%;
-      margin-bottom: 15px;
-
-      span {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 15px;
-        color: #fff;
-        font-weight: 500;
-      }
-
-      input {
-        width: 100%;
-        border: none;
-        outline: none;
-        padding: 8px 10px;
-        border-radius: 2px;
-        background-color: #e7ebf0;
-        font-weight: 500;
-        font-size: 14px;
-        transition: background-color .35s ease;
-
-        &:focus {
-          background-color: #fff;
-        }
-      }
-    }
   }
 }
 
