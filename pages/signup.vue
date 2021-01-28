@@ -5,23 +5,23 @@
         Регистрация
       </h3>
 
-      <form class="signup-form" @submit.prevent="onSubmit">
+      <form class="signup-form" autocomplete="off" @submit.prevent="onSubmit">
         <InputWithLabel
-          v-model.lazy="$v.email.$model"
+          v-model="email"
           reference="email-input"
           type="email"
           label="Email"
           :has-error="$v.email.$invalid"
         />
         <InputWithLabel
-          v-model.lazy="$v.password.$model"
+          v-model="password"
           reference="password-input"
           type="password"
           label="Пароль"
           :has-error="$v.password.$invalid"
         />
         <InputWithLabel
-          v-model.lazy="$v.passwordConfirm.$model"
+          v-model="passwordConfirm"
           reference="password-confirm-input"
           type="password"
           label="Подтвердите пароль"
@@ -39,33 +39,34 @@
 </template>
 
 <script>
-import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   data () {
     return {
       email: '',
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      error: null
     }
   },
   validations: {
     email: {
-      required,
-      email
+      required
+      // email
     },
     password: {
       required,
-      minLength: minLength(8),
-      containsUppercase (value) {
-        return /[A-Z]/.test(value)
-      },
-      containsLowercase (value) {
-        return /[a-z]/.test(value)
-      },
-      containsNumber (value) {
-        return /[0-9]/.test(value)
-      }
+      minLength: minLength(8)
+      // containsUppercase (value) {
+      //   return /[A-Z]/.test(value)
+      // },
+      // containsLowercase (value) {
+      //   return /[a-z]/.test(value)
+      // },
+      // containsNumber (value) {
+      //   return /[0-9]/.test(value)
+      // }
     },
     passwordConfirm: {
       required,
@@ -73,8 +74,25 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      alert('Submit')
+    async onSubmit () {
+      try {
+        await this.$axios.post('user', {
+          email: this.email,
+          password: this.password,
+          name: ''
+        })
+
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+
+        await this.$router.push('/')
+      } catch (e) {
+        this.error = e
+      }
     }
   }
 }
