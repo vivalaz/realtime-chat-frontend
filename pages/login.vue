@@ -1,11 +1,11 @@
 <template>
-  <div class="login-container">
-    <div class="login-form-container">
+  <div class="auth-container">
+    <div class="auth-form-container">
       <h3 class="title">
         Авторизация
       </h3>
 
-      <form class="login-form" autocomplete="off" novalidate @submit.prevent="onSubmit">
+      <form class="auth-form" autocomplete="off" novalidate @submit.prevent="onSubmit">
         <InputWithLabel
           v-model="email"
           reference="email-input"
@@ -42,6 +42,7 @@
 import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
+  layout: 'auth',
   middleware: 'guest',
   data () {
     return {
@@ -78,8 +79,6 @@ export default {
             password: this.password
           }
         })
-
-        // await this.$router.push('/')
       } catch (e) {
         this.error = e
       }
@@ -87,51 +86,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-.login-container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .title {
-    margin-bottom: 8px;
-    font-size: 25px;
-    color: #313e4c;
-  }
-
-  .login-form-container {
-    display: flex;
-    min-width: 320px;
-    max-width: 320px;
-    flex-direction: column;
-  }
-
-  .login-form {
-    padding: 30px 15px 15px 15px;
-    background-color: #313e4c;
-    border-radius: 5px;
-  }
-
-  .description {
-    margin-top: 10px;
-    text-align: center;
-    color: #585858;
-    font-size: 15px;
-    a {
-      color: #313e4c;
-      font-weight: 500;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-}
-
-</style>
