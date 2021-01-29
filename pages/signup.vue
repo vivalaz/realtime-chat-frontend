@@ -5,7 +5,7 @@
         Регистрация
       </h3>
 
-      <form class="signup-form" autocomplete="off" @submit.prevent="onSubmit">
+      <form class="signup-form" autocomplete="off" novalidate @submit.prevent="onSubmit">
         <InputWithLabel
           v-model="email"
           reference="email-input"

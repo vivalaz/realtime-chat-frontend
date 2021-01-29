@@ -5,7 +5,7 @@
         Авторизация
       </h3>
 
-      <form class="login-form" autocomplete="off" @submit.prevent="onSubmit">
+      <form class="login-form" autocomplete="off" novalidate @submit.prevent="onSubmit">
         <InputWithLabel
           v-model="email"
           reference="email-input"
