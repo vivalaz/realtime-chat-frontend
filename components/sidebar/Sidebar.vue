@@ -4,11 +4,14 @@
     <sidebar-settings-view v-else />
 
     <footer class="sidebar-footer">
-      <div v-if="dialogViewIsVisible" @click="showSettings">
+      <div v-if="dialogViewIsVisible" class="sidebar-footer-button" @click="showSettings">
         Настройки
       </div>
-      <div v-else @click="showDialogs">
+      <div v-else class="sidebar-footer-button" @click="showDialogs">
         Диалоги
+      </div>
+      <div class="sidebar-footer-button" @click="logout">
+        Выход
       </div>
     </footer>
   </div>
@@ -32,6 +35,9 @@ export default {
     },
     showDialogs () {
       return this.$store.dispatch('sidebar/showDialogsView')
+    },
+    async logout () {
+      return await this.$auth.logout()
     }
   }
 }
@@ -59,15 +65,16 @@ $sidebar-footer-height: 45px;
 
   &-footer {
     position: relative;
+    display: flex;
     height: $sidebar-footer-height;
     width: 100%;
     box-shadow: 0 0 27px 1px rgba(34, 45, 56, 1);
 
-    div {
+    .sidebar-footer-button {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      width: 50%;
       height: 100%;
       color: #fff;
       font-weight: 300;

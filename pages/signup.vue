@@ -42,6 +42,7 @@
 import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
+  middleware: 'guest',
   data () {
     return {
       email: '',
@@ -89,7 +90,7 @@ export default {
           }
         })
 
-        await this.$router.push('/')
+        // await this.$router.push('/')
       } catch (e) {
         this.error = e
       }
