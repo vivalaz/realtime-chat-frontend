@@ -1,11 +1,11 @@
 <template>
-  <div class="signup-container">
-    <div class="signup-form-container">
+  <div class="login-container">
+    <div class="login-form-container">
       <h3 class="title">
-        Регистрация
+        Авторизация
       </h3>
 
-      <form class="signup-form" autocomplete="off" @submit.prevent="onSubmit">
+      <form class="login-form" autocomplete="off" @submit.prevent="onSubmit">
         <InputWithLabel
           v-model="email"
           reference="email-input"
@@ -20,25 +20,18 @@
           label="Пароль"
           :has-error="$v.password.$invalid"
         />
-        <InputWithLabel
-          v-model="passwordConfirm"
-          reference="password-confirm-input"
-          type="password"
-          label="Подтвердите пароль"
-          :has-error="$v.passwordConfirm.$invalid"
-        />
 
         <ChatButton
           :disabled="$v.$anyError"
         >
-          Зарегестрироваться
+          Войти
         </ChatButton>
       </form>
 
       <div class="description">
-        Уже зарегестрированы? <br>
-        <NuxtLink to="/login">
-          Войти
+        Нет аккаунта для общения? <br>
+        <NuxtLink to="/signup">
+          Пройдите простую регистрацию!
         </NuxtLink>
       </div>
     </div>
@@ -46,7 +39,7 @@
 </template>
 
 <script>
-import { required, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   middleware: 'guest',
@@ -54,7 +47,6 @@ export default {
     return {
       email: '',
       password: '',
-      passwordConfirm: '',
       error: null
     }
   },
@@ -75,21 +67,11 @@ export default {
       // containsNumber (value) {
       //   return /[0-9]/.test(value)
       // }
-    },
-    passwordConfirm: {
-      required,
-      sameAsPassword: sameAs('password')
     }
   },
   methods: {
     async onSubmit () {
       try {
-        await this.$axios.post('user', {
-          email: this.email,
-          password: this.password,
-          name: ''
-        })
-
         await this.$auth.loginWith('local', {
           data: {
             email: this.email,
@@ -108,7 +90,7 @@ export default {
 
 <style scoped lang="scss">
 
-.signup-container {
+.login-container {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -123,14 +105,14 @@ export default {
     color: #313e4c;
   }
 
-  .signup-form-container {
+  .login-form-container {
     display: flex;
     min-width: 320px;
     max-width: 320px;
     flex-direction: column;
   }
 
-  .signup-form {
+  .login-form {
     padding: 30px 15px 15px 15px;
     background-color: #313e4c;
     border-radius: 5px;
