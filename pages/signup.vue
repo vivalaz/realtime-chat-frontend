@@ -29,7 +29,8 @@
         />
 
         <ChatButton
-          :disabled="$v.$anyError"
+          :disabled="processing || $v.$anyError"
+          :loading="processing"
         >
           Зарегестрироваться
         </ChatButton>
@@ -56,7 +57,8 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
-      error: null
+      error: null,
+      processing: false
     }
   },
   validations: {
@@ -85,6 +87,8 @@ export default {
   methods: {
     async onSubmit () {
       try {
+        this.processing = true
+
         await this.$axios.post('user', {
           email: this.email,
           password: this.password,
@@ -99,6 +103,8 @@ export default {
         })
       } catch (e) {
         this.error = e
+      } finally {
+        this.processing = false
       }
     }
   }

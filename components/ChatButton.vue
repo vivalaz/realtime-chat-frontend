@@ -1,6 +1,7 @@
 <template>
   <button class="chat-button" :disabled="disabled">
-    <slot />
+    <slot v-if="!loading" />
+    <template v-else>Загрузка...</template>
   </button>
 </template>
 
@@ -8,7 +9,8 @@
 export default {
   name: 'ChatButton',
   props: {
-    disabled: Boolean
+    disabled: Boolean,
+    loading: Boolean
   }
 }
 </script>

@@ -22,7 +22,8 @@
         />
 
         <ChatButton
-          :disabled="$v.$anyError"
+          :disabled="processing || $v.$anyError"
+          :loading="processing"
         >
           Войти
         </ChatButton>
@@ -48,7 +49,8 @@ export default {
     return {
       email: '',
       password: '',
-      error: null
+      error: null,
+      processing: false
     }
   },
   validations: {
@@ -73,6 +75,8 @@ export default {
   methods: {
     async onSubmit () {
       try {
+        this.processing = true
+
         await this.$auth.loginWith('local', {
           data: {
             email: this.email,
@@ -81,6 +85,8 @@ export default {
         })
       } catch (e) {
         this.error = e
+      } finally {
+        this.processing = false
       }
     }
   }
