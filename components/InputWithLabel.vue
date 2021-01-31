@@ -17,6 +17,11 @@
 export default {
   name: 'InputWithLabel',
   props: {
+    value: {
+      required: true,
+      type: String,
+      default: ''
+    },
     reference: {
       required: false,
       type: String,

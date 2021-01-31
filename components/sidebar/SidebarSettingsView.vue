@@ -21,21 +21,7 @@
       </header>
 
       <main>
-        <form class="edit-profile-form" autocomplete="off" novalidate @submit.prevent="onSubmitEditProfile">
-          <InputWithLabel
-            v-model="name"
-            reference="name-input"
-            type="text"
-            label="Имя"
-          />
-
-          <ChatButton
-            :disabled="processing"
-            :loading="processing"
-          >
-            Редактировать
-          </ChatButton>
-        </form>
+        <UserData />
       </main>
     </div>
   </perfect-scrollbar>
@@ -43,42 +29,13 @@
 
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
+import UserData from '~/components/user/UserData'
 
 export default {
   name: 'SidebarSettingsView',
   components: {
+    UserData,
     PerfectScrollbar
-  },
-  data () {
-    return {
-      name: '',
-      processing: false
-    }
-  },
-  computed: {
-    userName () {
-      return this.$store.state.auth.user.displayName
-    }
-  },
-  beforeMount () {
-    this.name = this.userName
-  },
-  methods: {
-    onSubmitEditProfile () {
-      try {
-        this.processing = true
-
-        // await this.$axios.post('user', {
-        //   email: this.email,
-        //   password: this.password,
-        //   name: ''
-        // })
-      } catch (e) {
-
-      } finally {
-        this.processing = false
-      }
-    }
   }
 }
 </script>
@@ -122,10 +79,6 @@ $avatar-size: 80px;
 
   main {
     padding: 15px;
-
-    .edit-profile-form {
-
-    }
   }
 }
 
