@@ -1,11 +1,11 @@
 <template>
   <div class="sidebar">
-    <sidebar-dialog-view v-if="dialogViewIsVisible" />
-    <sidebar-settings-view v-else />
+    <sidebar-dialog-view v-if="isDialogsVisible" />
+    <sidebar-profile-view v-else />
 
     <footer class="sidebar-footer">
-      <div v-if="dialogViewIsVisible" class="sidebar-footer-button" @click="showSettings">
-        Настройки
+      <div v-if="isDialogsVisible" class="sidebar-footer-button" @click="showProfile">
+        Профиль
       </div>
       <div v-else class="sidebar-footer-button" @click="showDialogs">
         Диалоги
@@ -19,22 +19,22 @@
 
 <script>
 import SidebarDialogView from '~/components/sidebar/SidebarDialogView'
-import SidebarSettingsView from '~/components/sidebar/SidebarSettingsView'
+import SidebarProfileView from '~/components/sidebar/SidebarProfileView'
 
 export default {
   name: 'Sidebar',
-  components: { SidebarSettingsView, SidebarDialogView },
-  computed: {
-    dialogViewIsVisible () {
-      return !this.$store.state.sidebar.settingsViewVisibility
+  components: { SidebarProfileView, SidebarDialogView },
+  data () {
+    return {
+      isDialogsVisible: true
     }
   },
   methods: {
-    showSettings () {
-      return this.$store.dispatch('sidebar/showSettingsView')
+    showProfile () {
+      this.isDialogsVisible = false
     },
     showDialogs () {
-      return this.$store.dispatch('sidebar/showDialogsView')
+      this.isDialogsVisible = true
     },
     async logout () {
       return await this.$auth.logout()
@@ -48,6 +48,9 @@ export default {
 <style scoped lang="scss">
 
 $sidebar-footer-height: 45px;
+$dark-accent-color: #282a36;
+$dark-secondary-color: #44475b;
+$dark-blue-color: #578ec9;
 
 .sidebar {
   position: fixed;
@@ -56,7 +59,7 @@ $sidebar-footer-height: 45px;
   width: 20%;
   min-width: 320px;
   height: 100%;
-  background-color: #313e4c;
+  background-color: $dark-accent-color;
   overflow: hidden;
 
   .ps {
@@ -78,13 +81,13 @@ $sidebar-footer-height: 45px;
       height: 100%;
       color: #fff;
       font-weight: 300;
-      background-color: #3e5162;
+      background-color: $dark-secondary-color;
       font-size: 14px;
       cursor: pointer;
       transition: background .35s ease;
 
       &:hover {
-        background: #578ec9;
+        background: $dark-blue-color;
       }
     }
   }
