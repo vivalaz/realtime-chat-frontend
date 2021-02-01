@@ -1,7 +1,7 @@
 <template>
   <div class="user-profile">
     <div class="top-heading">
-      <UserAvatar :name="user.displayName" lg />
+      <EditableUserAvatar :name="user.displayName" lg />
 
       <div>
         <div class="user-name">
@@ -63,12 +63,12 @@
 </template>
 
 <script>
-import UserAvatar from '~/components/user/UserAvatar'
+import EditableUserAvatar from '~/components/user/EditableUserAvatar'
 
 export default {
   name: 'UserProfile',
   components: {
-    UserAvatar
+    EditableUserAvatar
   },
   computed: {
     user () {
