@@ -7,21 +7,21 @@
 
       <form class="auth-form" autocomplete="off" novalidate @submit.prevent="onSubmit">
         <InputWithLabel
-          v-model="email"
+          v-model="$v.email.$model"
           reference="email-input"
           type="email"
           label="Email"
           :has-error="$v.email.$invalid"
         />
         <InputWithLabel
-          v-model="password"
+          v-model="$v.password.$model"
           reference="password-input"
           type="password"
           label="Пароль"
           :has-error="$v.password.$invalid"
         />
         <InputWithLabel
-          v-model="passwordConfirm"
+          v-model="$v.passwordConfirm.$model"
           reference="password-confirm-input"
           type="password"
           label="Подтвердите пароль"
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { required, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, sameAs, email } from 'vuelidate/lib/validators'
 
 export default {
   layout: 'auth',
@@ -63,21 +63,21 @@ export default {
   },
   validations: {
     email: {
-      required
-      // email
+      required,
+      email
     },
     password: {
       required,
-      minLength: minLength(8)
-      // containsUppercase (value) {
-      //   return /[A-Z]/.test(value)
-      // },
-      // containsLowercase (value) {
-      //   return /[a-z]/.test(value)
-      // },
-      // containsNumber (value) {
-      //   return /[0-9]/.test(value)
-      // }
+      minLength: minLength(8),
+      containsUppercase (value) {
+        return /[A-Z]/.test(value)
+      },
+      containsLowercase (value) {
+        return /[a-z]/.test(value)
+      },
+      containsNumber (value) {
+        return /[0-9]/.test(value)
+      }
     },
     passwordConfirm: {
       required,
