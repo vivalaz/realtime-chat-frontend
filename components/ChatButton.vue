@@ -17,6 +17,8 @@ export default {
 
 <style lang="scss">
 
+$dark-secondary-color: #44475b;
+
 .chat-button {
   border: none;
   outline: none;
@@ -28,7 +30,7 @@ export default {
   color: #fff;
   font-weight: 300;
   font-size: 14px;
-  background-color: #3e5162;
+  background-color: $dark-secondary-color;
   cursor: pointer;
   border-radius: 2px;
   transition: background .35s ease;

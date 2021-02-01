@@ -28,6 +28,9 @@ html {
 
 <style lang="scss">
 
+$dark-accent-color: #282a36;
+$dark-secondary-color: #44475b;
+
 .auth-container {
   position: relative;
   width: 100%;
@@ -52,7 +55,7 @@ html {
 
   .auth-form {
     padding: 30px 15px 15px 15px;
-    background-color: #313e4c;
+    background-color: $dark-accent-color;
     border-radius: 5px;
   }
 

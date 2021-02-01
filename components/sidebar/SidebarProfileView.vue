@@ -12,7 +12,7 @@
 
           <div>
             <div class="user-name">
-              {{ user.displayName }}
+              {{ user.displayName || 'НЛО' }}
             </div>
             <div class="sub-info">
               <span>
@@ -25,10 +25,36 @@
         <div class="additional-data">
           <div class="item">
             <div class="label">
+              Телефон
+            </div>
+            <div class="value">
+              <template v-if="user.data">
+                user.data.phone
+              </template>
+              <template v-else>
+                -
+              </template>
+            </div>
+          </div>
+          <div class="item">
+            <div class="label">
+              О себе
+            </div>
+            <div class="value">
+              <template v-if="user.data">
+                user.data.description
+              </template>
+              <template v-else>
+                -
+              </template>
+            </div>
+          </div>
+          <div class="item">
+            <div class="label">
               Дата регистрации
             </div>
             <div class="value">
-              {{ user.metadata.creationTime }}
+              {{ getHumanReadableDate(user.metadata.creationTime) }}
             </div>
           </div>
           <div class="item">
@@ -36,7 +62,7 @@
               Дата последней авторизации
             </div>
             <div class="value">
-              {{ user.metadata.lastSignInTime }}
+              {{ getHumanReadableDate(user.metadata.lastSignInTime) }}
             </div>
           </div>
         </div>
@@ -58,6 +84,22 @@ export default {
   computed: {
     user () {
       return this.$store.state.auth.user
+    }
+  },
+  methods: {
+    getHumanReadableDate (date) {
+      if (!date) {
+        return null
+      }
+
+      return new Date(date).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+      })
     }
   }
 }
