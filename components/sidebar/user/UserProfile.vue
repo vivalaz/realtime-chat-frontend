@@ -1,7 +1,7 @@
 <template>
   <div class="user-profile">
     <div class="top-heading">
-      <EditableUserAvatar :name="user.displayName" lg />
+      <EditableUserAvatar :name="user.displayName" :src="user.photoURL" lg />
 
       <div>
         <div class="user-name">

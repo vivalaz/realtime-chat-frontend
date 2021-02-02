@@ -32,7 +32,7 @@ export default {
           }
         })
 
-        console.log(response)
+        this.$auth.setUser(response.data)
       } catch (e) {
         console.error(e)
       }

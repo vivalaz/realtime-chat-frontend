@@ -94,6 +94,7 @@ $avatar-size-lg: 55px;
 
   img {
     max-width: 100%;
+    height: 100%;
   }
 
   .default-avatar {
