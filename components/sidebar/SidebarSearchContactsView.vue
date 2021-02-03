@@ -1,7 +1,7 @@
 <template>
   <perfect-scrollbar>
-    <div v-if="!chats.length" class="empty-sidebar">
-      У Вас нет активных чатов!
+    <div class="search-contacts-view">
+      Поиск по контактам
     </div>
   </perfect-scrollbar>
 </template>
@@ -10,14 +10,13 @@
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 
 export default {
-  name: 'SidebarDialogView',
+  name: 'SidebarSearchContactsView',
   components: {
     PerfectScrollbar
-  },
-  data () {
-    return {
-      chats: []
-    }
   }
 }
 </script>
+
+<style scoped>
+
+</style>

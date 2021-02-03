@@ -1,13 +1,23 @@
 <template>
   <div class="sidebar">
+    <header class="sidebar-header">
+      <div v-if="!isSearchContactVisible" class="sidebar-header-button" @click="showSearchContacts">
+        Поиск контактов
+      </div>
+      <div v-else class="sidebar-header-button" @click="showDialogs">
+        &#8592; Вернуться к чатам
+      </div>
+    </header>
+
     <sidebar-dialog-view v-if="isDialogsVisible" />
-    <sidebar-profile-view v-else />
+    <sidebar-profile-view v-else-if="isProfileVisible" />
+    <sidebar-search-contacts-view v-else-if="isSearchContactVisible" />
 
     <footer class="sidebar-footer">
       <div v-if="isDialogsVisible" class="sidebar-footer-button" @click="showProfile">
         Профиль
       </div>
-      <div v-else class="sidebar-footer-button" @click="showDialogs">
+      <div v-else-if="isProfileVisible || isSearchContactVisible" class="sidebar-footer-button" @click="showDialogs">
         Диалоги
       </div>
       <div class="sidebar-footer-button" @click="logout">
@@ -20,21 +30,39 @@
 <script>
 import SidebarDialogView from '~/components/sidebar/SidebarDialogView'
 import SidebarProfileView from '~/components/sidebar/SidebarProfileView'
+import SidebarSearchContactsView from '~/components/sidebar/SidebarSearchContactsView'
 
 export default {
   name: 'Sidebar',
-  components: { SidebarProfileView, SidebarDialogView },
+  components: { SidebarSearchContactsView, SidebarProfileView, SidebarDialogView },
   data () {
     return {
-      isDialogsVisible: true
+      PROFILE_VIEW: 'profile',
+      DIALOGS_VIEW: 'dialogs',
+      SEARCH_CONTACT_VIEW: 'search-contacts',
+      selectedView: 'dialogs'
+    }
+  },
+  computed: {
+    isDialogsVisible () {
+      return this.selectedView === this.DIALOGS_VIEW
+    },
+    isProfileVisible () {
+      return this.selectedView === this.PROFILE_VIEW
+    },
+    isSearchContactVisible () {
+      return this.selectedView === this.SEARCH_CONTACT_VIEW
     }
   },
   methods: {
     showProfile () {
-      this.isDialogsVisible = false
+      this.selectedView = this.PROFILE_VIEW
     },
     showDialogs () {
-      this.isDialogsVisible = true
+      this.selectedView = this.DIALOGS_VIEW
+    },
+    showSearchContacts () {
+      this.selectedView = this.SEARCH_CONTACT_VIEW
     },
     async logout () {
       return await this.$auth.logout()
@@ -45,15 +73,31 @@ export default {
 
 <style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
 
-<style scoped lang="scss">
+<style lang="scss">
 
+$sidebar-header-height: 30px;
 $sidebar-footer-height: 45px;
 $dark-accent-color: #282a36;
 $dark-secondary-color: #44475b;
 $dark-blue-color: #578ec9;
 
+@mixin sidebarButtonStyle() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $dark-secondary-color;
+  font-weight: 300;
+  color: #fff;
+  cursor: pointer;
+  transition: background .35s ease;
+
+  &:hover {
+    background: $dark-blue-color;
+  }
+}
+
 .sidebar {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 20%;
@@ -63,7 +107,27 @@ $dark-blue-color: #578ec9;
   overflow: hidden;
 
   .ps {
-    height: calc(100% - #{$sidebar-footer-height});
+    height: calc(100% - #{$sidebar-footer-height} - #{$sidebar-header-height});
+  }
+
+  .empty-sidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #e7ebf0;
+  }
+
+  &-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 27px 1px rgba(34, 45, 56, 1);
+    &-button {
+      height: $sidebar-header-height;
+      font-size: 13px;
+      @include sidebarButtonStyle();
+    }
   }
 
   &-footer {
@@ -74,21 +138,10 @@ $dark-blue-color: #578ec9;
     box-shadow: 0 0 27px 1px rgba(34, 45, 56, 1);
 
     .sidebar-footer-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 50%;
       height: 100%;
-      color: #fff;
-      font-weight: 300;
-      background-color: $dark-secondary-color;
       font-size: 14px;
-      cursor: pointer;
-      transition: background .35s ease;
-
-      &:hover {
-        background: $dark-blue-color;
-      }
+      @include sidebarButtonStyle();
     }
   }
 }

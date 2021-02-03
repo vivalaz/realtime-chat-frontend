@@ -1,8 +1,33 @@
 <template>
-  <div>
-    <Nuxt />
+  <div class="chat-container">
+    <Sidebar />
+
+    <div class="dialog-container">
+      <Nuxt />
+    </div>
   </div>
 </template>
+
+<script>
+import Sidebar from '~/components/sidebar/Sidebar'
+
+export default {
+  components: { Sidebar }
+}
+</script>
+
+<style lang="scss">
+
+.chat-container {
+  display: flex;
+  height: 100vh;
+
+  .dialog-container {
+    width: 100%;
+  }
+}
+
+</style>
 
 <style>
 html {

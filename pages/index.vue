@@ -1,22 +1,30 @@
 <template>
-  <div class="index-container">
-    <Sidebar />
+  <div class="empty-chat-alert">
+    <span>
+      Выберите чат из списка
+    </span>
   </div>
 </template>
 
 <script>
-import Sidebar from '~/components/sidebar/Sidebar'
-
 export default {
-  components: { Sidebar },
   middleware: 'auth'
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
-.index-container {
+.empty-chat-alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 
+  span {
+    font-weight: 600;
+    font-size: 22px;
+    color: #282a36;
+  }
 }
 
 </style>
