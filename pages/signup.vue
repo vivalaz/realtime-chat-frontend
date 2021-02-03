@@ -36,6 +36,8 @@
         </ChatButton>
       </form>
 
+      <ServerError v-if="error" :data="error" />
+
       <div class="description">
         Уже зарегестрированы? <br>
         <NuxtLink to="/login">
@@ -48,8 +50,10 @@
 
 <script>
 import { required, minLength, sameAs, email } from 'vuelidate/lib/validators'
+import ServerError from '~/components/ServerError'
 
 export default {
+  components: { ServerError },
   layout: 'auth',
   middleware: 'guest',
   data () {
@@ -87,22 +91,17 @@ export default {
   methods: {
     async onSubmit () {
       try {
+        this.error = null
         this.processing = true
 
-        await this.$axios.post('user', {
+        const response = await this.$axios.post('user', {
           email: this.email,
-          password: this.password,
-          name: ''
+          password: this.password
         })
 
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        })
+        this.$auth.setUserToken(response.data.token)
       } catch (e) {
-        this.error = e
+        this.error = e.response
       } finally {
         this.processing = false
       }

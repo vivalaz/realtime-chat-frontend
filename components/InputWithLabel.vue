@@ -18,7 +18,7 @@ export default {
   name: 'InputWithLabel',
   props: {
     value: {
-      required: true,
+      required: false,
       type: String,
       default: ''
     },

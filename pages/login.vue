@@ -29,6 +29,8 @@
         </ChatButton>
       </form>
 
+      <ServerError v-if="error" :data="error" />
+
       <div class="description">
         Нет аккаунта для общения? <br>
         <NuxtLink to="/signup">
@@ -75,6 +77,7 @@ export default {
   methods: {
     async onSubmit () {
       try {
+        this.error = null
         this.processing = true
 
         await this.$auth.loginWith('local', {
@@ -84,7 +87,7 @@ export default {
           }
         })
       } catch (e) {
-        this.error = e
+        this.error = e.response
       } finally {
         this.processing = false
       }
