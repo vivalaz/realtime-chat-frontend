@@ -17,6 +17,11 @@
 export default {
   name: 'InputWithLabel',
   props: {
+    value: {
+      required: false,
+      type: String,
+      default: ''
+    },
     reference: {
       required: false,
       type: String,
@@ -84,7 +89,7 @@ export default {
 
     &.has-error {
       input {
-        box-shadow: 0 0 8px 1px rgba(206, 98, 98, 1);
+        //box-shadow: 0 0 8px 1px rgba(206, 98, 98, 1);
       }
     }
   }

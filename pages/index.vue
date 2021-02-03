@@ -8,7 +8,8 @@
 import Sidebar from '~/components/sidebar/Sidebar'
 
 export default {
-  components: { Sidebar }
+  components: { Sidebar },
+  middleware: 'auth'
 }
 </script>
 

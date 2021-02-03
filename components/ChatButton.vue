@@ -1,6 +1,7 @@
 <template>
   <button class="chat-button" :disabled="disabled">
-    <slot />
+    <slot v-if="!loading" />
+    <template v-else>Загрузка...</template>
   </button>
 </template>
 
@@ -8,12 +9,15 @@
 export default {
   name: 'ChatButton',
   props: {
-    disabled: Boolean
+    disabled: Boolean,
+    loading: Boolean
   }
 }
 </script>
 
 <style lang="scss">
+
+$dark-secondary-color: #44475b;
 
 .chat-button {
   border: none;
@@ -26,7 +30,7 @@ export default {
   color: #fff;
   font-weight: 300;
   font-size: 14px;
-  background-color: #3e5162;
+  background-color: $dark-secondary-color;
   cursor: pointer;
   border-radius: 2px;
   transition: background .35s ease;

@@ -2,7 +2,7 @@
   <div class="auth-container">
     <div class="auth-form-container">
       <h3 class="title">
-        Регистрация
+        Авторизация
       </h3>
 
       <form class="auth-form" autocomplete="off" novalidate @submit.prevent="onSubmit">
@@ -20,28 +20,21 @@
           label="Пароль"
           :has-error="$v.password.$invalid"
         />
-        <InputWithLabel
-          v-model="$v.passwordConfirm.$model"
-          reference="password-confirm-input"
-          type="password"
-          label="Подтвердите пароль"
-          :has-error="$v.passwordConfirm.$invalid"
-        />
 
         <ChatButton
           :disabled="processing || $v.$anyError"
           :loading="processing"
         >
-          Зарегестрироваться
+          Войти
         </ChatButton>
       </form>
 
       <ServerError v-if="error" :data="error" />
 
       <div class="description">
-        Уже зарегестрированы? <br>
-        <NuxtLink to="/login">
-          Войти
+        Нет аккаунта для общения? <br>
+        <NuxtLink to="/signup">
+          Пройдите простую регистрацию!
         </NuxtLink>
       </div>
     </div>
@@ -49,18 +42,15 @@
 </template>
 
 <script>
-import { required, minLength, sameAs, email } from 'vuelidate/lib/validators'
-import ServerError from '~/components/ServerError'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 
 export default {
-  components: { ServerError },
   layout: 'auth',
   middleware: 'guest',
   data () {
     return {
       email: '',
       password: '',
-      passwordConfirm: '',
       error: null,
       processing: false
     }
@@ -82,10 +72,6 @@ export default {
       containsNumber (value) {
         return /[0-9]/.test(value)
       }
-    },
-    passwordConfirm: {
-      required,
-      sameAsPassword: sameAs('password')
     }
   },
   methods: {
@@ -94,12 +80,12 @@ export default {
         this.error = null
         this.processing = true
 
-        const response = await this.$axios.post('user', {
-          email: this.email,
-          password: this.password
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password
+          }
         })
-
-        this.$auth.setUserToken(response.data.token)
       } catch (e) {
         this.error = e.response
       } finally {
