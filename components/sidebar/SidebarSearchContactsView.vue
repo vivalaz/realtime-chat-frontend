@@ -5,14 +5,11 @@
         <InputWithLabel
           v-model="query"
           placeholder="Вводите email контакта"
+          @input="searchContacts"
         />
       </header>
-
       <main>
-        <DialogItem />
-        <DialogItem />
-        <DialogItem />
-        <DialogItem />
+        //todo
       </main>
     </div>
   </perfect-scrollbar>
@@ -21,6 +18,25 @@
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import { mapMutations } from 'vuex'
+
+const debouncer = (func, wait, immediate) => {
+  let timeout
+
+  return function () {
+    const context = this
+    const args = arguments
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      timeout = null
+      if (!immediate) {
+        func.apply(context, args)
+      }
+    }, wait)
+    if (immediate && !timeout) {
+      func.apply(context, args)
+    }
+  }
+}
 
 export default {
   name: 'SidebarSearchContactsView',
@@ -40,7 +56,13 @@ export default {
   methods: {
     ...mapMutations('search-contacts', [
       'UPDATE_SEARCH_QUERY'
-    ])
+    ]),
+    searchContacts: debouncer(function () {
+      return this.$store.dispatch('search-contacts/searchContacts')
+    }, process.env.debounceTimeout),
+    startChatWithContact () {
+
+    }
   }
 }
 </script>

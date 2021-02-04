@@ -15,6 +15,8 @@ export const actions = {
   searchContacts ({ commit }) {
     try {
       commit('SET_PROCESSING_FLAG', true)
+
+      console.log('fired search')
     } catch (e) {
 
     } finally {

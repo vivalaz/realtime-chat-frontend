@@ -1,18 +1,27 @@
 <template>
 
-  <div class="dialog-item" :class="{'dialog-item--active': active}">
-
+  <div
+    class="dialog-item"
+    :class="{
+      'dialog-item--active': active,
+      'dialog-item--small': small
+    }"
+  >
     <div class="avatar">
-      <UserAvatar :src="avatar" name="Виталий Гриневич" />
+      <UserAvatar :src="avatar" :name="name" />
     </div>
 
     <div class="data">
 
-      <div class="name">Виталий Гриневич</div>
-      <div class="preview">Lorem ipsum dolor sit amet.</div>
+      <div class="name">
+        {{ name }}
+      </div>
+      <div v-if="message" class="preview">
+        {{ message }}
+      </div>
 
-      <div class="time">
-        10:23
+      <div v-if="time" class="time">
+        {{ time }}
       </div>
     </div>
 
@@ -28,7 +37,23 @@ export default {
   components: { UserAvatar },
   props: {
     active: Boolean,
+    small: Boolean,
     avatar: {
+      required: false,
+      default: null,
+      type: String
+    },
+    name: {
+      required: false,
+      default: 'НЛО',
+      type: String
+    },
+    message: {
+      required: false,
+      default: null,
+      type: String
+    },
+    time: {
       required: false,
       default: null,
       type: String
@@ -57,6 +82,9 @@ $dark-secondary-color: #44475b;
 
   .data {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
 
     .name {
@@ -94,6 +122,10 @@ $dark-secondary-color: #44475b;
         color: #636363;
       }
     }
+  }
+
+  &--small {
+    padding: 8px 15px;
   }
 }
 
