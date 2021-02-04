@@ -58,7 +58,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:3003/api'
+    baseURL: 'http://localhost:3001/api'
   },
 
   env: {
@@ -78,7 +78,7 @@ export default {
             method: 'post'
           },
           user: {
-            url: '/user',
+            url: '/user/profile',
             method: 'get',
             propertyName: false
           },

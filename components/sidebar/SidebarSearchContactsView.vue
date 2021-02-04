@@ -9,7 +9,14 @@
         />
       </header>
       <main>
-        //todo
+        <DialogItem
+          v-for="contact in contacts"
+          :key="contact.id"
+          small
+          :avatar="contact.photoURL"
+          :name="contact.name"
+          :message="contact.email"
+        />
       </main>
     </div>
   </perfect-scrollbar>
@@ -17,7 +24,8 @@
 
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import DialogItem from '~/components/sidebar/DialogItem'
 
 const debouncer = (func, wait, immediate) => {
   let timeout
@@ -41,9 +49,13 @@ const debouncer = (func, wait, immediate) => {
 export default {
   name: 'SidebarSearchContactsView',
   components: {
+    DialogItem,
     PerfectScrollbar
   },
   computed: {
+    ...mapState('search-contacts', [
+      'contacts'
+    ]),
     query: {
       get () {
         return this.$store.state['search-contacts'].searchQuery
@@ -52,6 +64,9 @@ export default {
         this.UPDATE_SEARCH_QUERY(value)
       }
     }
+  },
+  destroyed () {
+    this.$store.dispatch('search-contacts/resetSearchState')
   },
   methods: {
     ...mapMutations('search-contacts', [

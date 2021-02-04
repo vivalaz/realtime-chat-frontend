@@ -9,14 +9,29 @@ export const mutations = {
   },
   UPDATE_SEARCH_QUERY (state, payload) {
     state.searchQuery = payload
+  },
+  SET_CONTACTS (state, payload) {
+    state.contacts = payload
   }
 }
 export const actions = {
-  searchContacts ({ commit }) {
+  resetSearchState ({ commit }) {
+    commit('SET_CONTACTS', [])
+    commit('UPDATE_SEARCH_QUERY', '')
+  },
+  async searchContacts ({ state, commit }) {
     try {
       commit('SET_PROCESSING_FLAG', true)
 
-      console.log('fired search')
+      const response = await this.$axios.get('/user', {
+        params: {
+          query: state.searchQuery
+        }
+      })
+
+      if (response && response.data) {
+        commit('SET_CONTACTS', response.data)
+      }
     } catch (e) {
 
     } finally {

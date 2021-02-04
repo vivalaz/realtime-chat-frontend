@@ -14,7 +14,7 @@
     <div class="data">
 
       <div class="name">
-        {{ name }}
+        {{ name || 'НЛО' }}
       </div>
       <div v-if="message" class="preview">
         {{ message }}
@@ -45,7 +45,7 @@ export default {
     },
     name: {
       required: false,
-      default: 'НЛО',
+      default: null,
       type: String
     },
     message: {
