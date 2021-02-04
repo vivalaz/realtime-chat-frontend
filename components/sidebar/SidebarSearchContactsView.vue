@@ -16,6 +16,7 @@
           :avatar="contact.photoURL"
           :name="contact.name"
           :message="contact.email"
+          @click.native="startChatWithContact(contact.id)"
         />
       </main>
     </div>
@@ -75,8 +76,8 @@ export default {
     searchContacts: debouncer(function () {
       return this.$store.dispatch('search-contacts/searchContacts')
     }, process.env.debounceTimeout),
-    startChatWithContact () {
-
+    startChatWithContact (id) {
+      this.$router.push(`/${id}`)
     }
   }
 }
