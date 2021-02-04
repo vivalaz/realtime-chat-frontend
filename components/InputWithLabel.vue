@@ -7,8 +7,8 @@
       }"
       :for="reference"
     >
-      <span>{{ label }}</span>
-      <input :id="reference" v-model="localValue" :type="type">
+      <span v-if="label">{{ label }}</span>
+      <input :id="reference" v-model="localValue" :type="type" :placeholder="placeholder">
     </label>
   </div>
 </template>
@@ -28,14 +28,19 @@ export default {
       default: null
     },
     label: {
-      required: true,
+      required: false,
       type: String,
-      default: ''
+      default: null
     },
     type: {
       required: false,
       type: String,
       default: 'text'
+    },
+    placeholder: {
+      required: false,
+      type: String,
+      default: ''
     },
     hasError: Boolean
   },
