@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import SidebarDialogView from '~/components/sidebar/SidebarDialogView'
 import SidebarProfileView from '~/components/sidebar/SidebarProfileView'
 import SidebarSearchContactsView from '~/components/sidebar/SidebarSearchContactsView'
@@ -35,35 +36,19 @@ import SidebarSearchContactsView from '~/components/sidebar/SidebarSearchContact
 export default {
   name: 'Sidebar',
   components: { SidebarSearchContactsView, SidebarProfileView, SidebarDialogView },
-  data () {
-    return {
-      PROFILE_VIEW: 'profile',
-      DIALOGS_VIEW: 'dialogs',
-      SEARCH_CONTACT_VIEW: 'search-contacts',
-      selectedView: 'dialogs'
-    }
-  },
   computed: {
-    isDialogsVisible () {
-      return this.selectedView === this.DIALOGS_VIEW
-    },
-    isProfileVisible () {
-      return this.selectedView === this.PROFILE_VIEW
-    },
-    isSearchContactVisible () {
-      return this.selectedView === this.SEARCH_CONTACT_VIEW
-    }
+    ...mapGetters('sidebar', [
+      'isDialogsVisible',
+      'isProfileVisible',
+      'isSearchContactVisible'
+    ])
   },
   methods: {
-    showProfile () {
-      this.selectedView = this.PROFILE_VIEW
-    },
-    showDialogs () {
-      this.selectedView = this.DIALOGS_VIEW
-    },
-    showSearchContacts () {
-      this.selectedView = this.SEARCH_CONTACT_VIEW
-    },
+    ...mapActions('sidebar', [
+      'showProfile',
+      'showDialogs',
+      'showSearchContacts'
+    ]),
     async logout () {
       return await this.$auth.logout()
     }

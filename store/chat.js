@@ -1,7 +1,35 @@
-export const state = () => ({})
-export const mutations = {}
+export const state = () => ({
+  chats: []
+})
+export const mutations = {
+  SET_CHATS (state, payload = []) {
+    state.chats = payload
+  }
+}
 export const middleware = {}
 export const actions = {
+  async getChats ({ commit }) {
+    try {
+      const response = await this.$axios.$get('/chat/chats')
+
+      if (response) {
+        commit('SET_CHATS', response)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  async createChat (_, id) {
+    try {
+      const response = await this.$axios.post(`/chat/create-chat-with/${id}`)
+
+      if (response && response.data && response.data.id) {
+        this.$router.push(`/${response.data.id}`)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  },
   async openChat (_, chatWithUserID) {
     try {
       await this.$axios.post(`/chat/open-chat/${chatWithUserID}`)

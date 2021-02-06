@@ -1,7 +1,9 @@
 <template>
   <button class="chat-button" :disabled="disabled">
     <slot v-if="!loading" />
-    <template v-else>Загрузка...</template>
+    <template v-else>
+      Загрузка...
+    </template>
   </button>
 </template>
 

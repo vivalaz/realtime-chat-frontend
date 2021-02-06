@@ -1,5 +1,4 @@
 <template>
-
   <div
     class="dialog-item"
     :class="{
@@ -12,7 +11,6 @@
     </div>
 
     <div class="data">
-
       <div class="name">
         {{ name || 'НЛО' }}
       </div>
@@ -24,9 +22,7 @@
         {{ time }}
       </div>
     </div>
-
   </div>
-
 </template>
 
 <script>

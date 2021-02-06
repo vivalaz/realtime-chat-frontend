@@ -25,7 +25,7 @@
 
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import DialogItem from '~/components/sidebar/DialogItem'
 
 const debouncer = (func, wait, immediate) => {
@@ -70,14 +70,18 @@ export default {
     this.$store.dispatch('search-contacts/resetSearchState')
   },
   methods: {
+    ...mapActions('sidebar', [
+      'showDialogs'
+    ]),
     ...mapMutations('search-contacts', [
       'UPDATE_SEARCH_QUERY'
     ]),
     searchContacts: debouncer(function () {
       return this.$store.dispatch('search-contacts/searchContacts')
     }, process.env.debounceTimeout),
-    startChatWithContact (id) {
-      this.$router.push(`/${id}`)
+    async startChatWithContact (id) {
+      await this.$store.dispatch('chat/createChat', id)
+      this.showDialogs()
     }
   }
 }
