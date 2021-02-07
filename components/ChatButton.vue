@@ -35,7 +35,7 @@ $dark-secondary-color: #44475b;
   background-color: $dark-secondary-color;
   cursor: pointer;
   border-radius: 2px;
-  transition: background .35s ease;
+  transition: background-color, color .35s ease;
 
   &:hover {
     background: #578ec9;

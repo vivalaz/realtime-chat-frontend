@@ -12,6 +12,7 @@
         :name="chat.with.displayName"
         :message="chat.lastMessage || '-'"
         :active="isActiveDialog(chat.id)"
+        :time="chat.timestamp"
         @click.native="startChatWithContact(chat.id)"
       />
     </template>

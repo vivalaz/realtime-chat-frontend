@@ -52,7 +52,7 @@ export default {
     time: {
       required: false,
       default: null,
-      type: String
+      type: Number
     }
   }
 }
