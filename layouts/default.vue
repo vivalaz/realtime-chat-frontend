@@ -29,6 +29,8 @@ export default {
 
 </style>
 
+<style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
+
 <style>
 html {
   font-family: 'Roboto', sans-serif;

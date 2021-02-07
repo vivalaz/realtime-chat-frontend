@@ -3,7 +3,7 @@
     <header>
       <user-avatar :src="user.photoURL" :name="user.displayName" lg />
 
-      <textarea v-model="message" class="message-input" />
+      <textarea v-model="message" class="message-input" placeholder="Введите сообщение..." />
     </header>
 
     <footer>
@@ -31,11 +31,13 @@ export default {
     }
   },
   methods: {
-    sendMessage () {
-      this.$axios.post(`/chat/temp-send/${this.$route.params.chat}`, {
+    async sendMessage () {
+      await this.$axios.post(`/chat/temp-send/${this.$route.params.chat}`, {
         message: this.message,
         id: this.$route.params.chat
       })
+
+      this.message = ''
     }
   }
 }
@@ -53,12 +55,13 @@ export default {
       .message-input {
         border: none;
         outline: none;
+        resize: none;
         border-radius: 5px;
         width: 100%;
         padding: 10px;
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
-        font-size: 16px;
+        font-size: 15px;
       }
     }
 

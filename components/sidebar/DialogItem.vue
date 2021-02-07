@@ -19,7 +19,7 @@
       </div>
 
       <div v-if="time" class="time">
-        {{ time }}
+        {{ getDate(time) }}
       </div>
     </div>
   </div>
@@ -53,6 +53,11 @@ export default {
       required: false,
       default: null,
       type: Number
+    }
+  },
+  methods: {
+    getDate (timestamp) {
+      return this.$dateFns.formatRelative(timestamp, new Date())
     }
   }
 }
