@@ -81,11 +81,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-.edit-user-profile {
-
-}
-
-</style>

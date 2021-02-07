@@ -77,9 +77,6 @@ export default {
 
 <style scoped lang="scss">
 
-$avatar-size: 40px;
-$avatar-size-lg: 55px;
-
 @mixin setAvatarSize($size: $avatar-size) {
   width: $size;
   min-width: $size;
@@ -88,7 +85,7 @@ $avatar-size-lg: 55px;
 
 .user-avatar {
   @include setAvatarSize();
-  margin-right: 10px;
+  margin-right: 0.625em;
   border-radius: 50%;
   overflow: hidden;
 

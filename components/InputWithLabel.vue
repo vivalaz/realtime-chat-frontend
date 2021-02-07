@@ -62,7 +62,7 @@ export default {
 .label-container {
   display: block;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 0.938em;
 
   .labeled-input {
     display: block;
@@ -70,8 +70,8 @@ export default {
 
     span {
       display: block;
-      margin-bottom: 5px;
-      font-size: 15px;
+      margin-bottom: 0.313em;
+      font-size: 0.938em;
       color: #fff;
       font-weight: 500;
     }
@@ -80,21 +80,15 @@ export default {
       width: 100%;
       border: none;
       outline: none;
-      padding: 8px 10px;
-      border-radius: 2px;
+      padding: 0.5em 0.625em;
+      border-radius: 0.125em;
       background-color: #e7ebf0;
       font-weight: 500;
-      font-size: 14px;
+      font-size: 0.875em;
       transition: background-color .35s ease;
 
       &:focus {
         background-color: #fff;
-      }
-    }
-
-    &.has-error {
-      input {
-        //box-shadow: 0 0 8px 1px rgba(206, 98, 98, 1);
       }
     }
   }

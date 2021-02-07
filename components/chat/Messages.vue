@@ -52,18 +52,14 @@ export default {
 
 <style scoped lang="scss">
 
-$dark-accent-color: #282a36;
-$dark-secondary-color: #44475b;
-$speech-arrow-size: 9px;
-
 .chat-messages {
-  padding: 15px 30px;
+  padding: 0.938em 1.875em;
 
   .chat-message {
     position: relative;
     display: inline-block;
     max-width: 80%;
-    padding: 5px 10px;
+    padding: 0.313em 0.625em;
     color: #fff;
 
     &:before {
@@ -75,7 +71,7 @@ $speech-arrow-size: 9px;
     }
 
     .data {
-      font-size: 14px;
+      font-size: 0.875em;
       color: #e7ebf0;
     }
 
@@ -83,38 +79,37 @@ $speech-arrow-size: 9px;
       text-align: right;
 
       .time {
-        font-size: 11px;
-        font-weight: 700;
-        color: #535f89;
+        font-size: 0.688em;
+        color: #c7c7c7;
       }
     }
 
     &--wrapper {
       display: flex;
-      margin: 5px 0;
+      margin: 0.313em 0;
 
       &.my-message {
         justify-content: flex-end;
 
         .chat-message {
-          border-radius: 5px 0 5px 5px;
-          background-color: $dark-secondary-color;
+          border-radius: 0.313em 0 0.313em 0.313em;
+          background: $blue-gradient;
 
           &:before {
             right: -$speech-arrow-size;
-            border-top: $speech-arrow-size solid $dark-secondary-color;
+            border-top: $speech-arrow-size solid $dark-blue-color;
             border-right: $speech-arrow-size solid transparent;
           }
         }
       }
       &.not-my-message {
         .chat-message {
-          border-radius: 0 5px 5px 5px;
-          background-color: $dark-accent-color;
+          border-radius: 0 0.313em 0.313em 0.313em;
+          background-color: $dark-secondary-color;
 
           &:before {
             left: -$speech-arrow-size;
-            border-top: $speech-arrow-size solid $dark-accent-color;
+            border-top: $speech-arrow-size solid $dark-secondary-color;
             border-left: $speech-arrow-size solid transparent;
           }
         }

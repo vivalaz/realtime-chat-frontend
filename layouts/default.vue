@@ -20,6 +20,8 @@ export default {
 
 .chat-container {
   display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
   height: 100vh;
 
   .dialog-container {

@@ -41,7 +41,7 @@ $dark-secondary-color: #44475b;
   align-items: center;
 
   .title {
-    margin-bottom: 8px;
+    margin-bottom: 0.5em;
     font-size: 25px;
     color: #313e4c;
   }
@@ -54,16 +54,16 @@ $dark-secondary-color: #44475b;
   }
 
   .auth-form {
-    padding: 30px 15px 15px 15px;
+    padding: 1.875em 0.938em 0.938em 0.938em;
     background-color: $dark-accent-color;
-    border-radius: 5px;
+    border-radius: 0.313em;
   }
 
   .description {
-    margin-top: 10px;
+    margin-top: 0.625em;
     text-align: center;
     color: #585858;
-    font-size: 15px;
+    font-size: 0.938em;
     a {
       color: #313e4c;
       font-weight: 500;

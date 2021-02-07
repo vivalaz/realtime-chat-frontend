@@ -1,33 +1,21 @@
 <template>
   <div class="chat-message-send">
-    <header>
-      <user-avatar :src="user.photoURL" :name="user.displayName" lg />
+    <textarea v-model="message" class="message-input" placeholder="Введите сообщение..." />
 
-      <textarea v-model="message" class="message-input" placeholder="Введите сообщение..." />
-    </header>
-
-    <footer>
-      <chat-button :disabled="!message" @click.native="sendMessage">
-        Отправить
-      </chat-button>
-    </footer>
+    <chat-button :disabled="!message" @click.native="sendMessage">
+      Отправить
+    </chat-button>
   </div>
 </template>
 
 <script>
 import ChatButton from '~/components/ChatButton'
-import UserAvatar from '~/components/user/UserAvatar'
 export default {
   name: 'ChatMessageInput',
-  components: { UserAvatar, ChatButton },
+  components: { ChatButton },
   data () {
     return {
       message: ''
-    }
-  },
-  computed: {
-    user () {
-      return this.$store.state.auth.user
     }
   },
   methods: {
@@ -44,35 +32,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .chat-message-send {
+
+.chat-message-send {
+  display: flex;
+  width: 100%;
+  padding: 0.938em 1.875em;
+
+  .message-input {
+    border: none;
+    outline: none;
+    resize: none;
+    border-radius: 0.313em 0 0 0.313em;
+    background-color: $dark-secondary-color;
+    color: #fff;
     width: 100%;
-    padding: 15px 30px;
+    padding: 0.625em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 0.938em;
 
-    header {
-      display: flex;
-      margin-bottom: 15px;
-
-      .message-input {
-        border: none;
-        outline: none;
-        resize: none;
-        border-radius: 5px;
-        width: 100%;
-        padding: 10px;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 400;
-        font-size: 15px;
-      }
-    }
-
-    footer {
-      display: flex;
-      justify-content: flex-end;
-
-      .chat-button {
-        width: auto;
-        padding: 10px 15px;
-      }
+    &::placeholder {
+      color: #fff;
     }
   }
+
+  .chat-button {
+    width: auto;
+    padding: 0.625em 0.938em;
+    border-radius: 0 0.125em 0.125em 0;
+  }
+}
 </style>

@@ -96,44 +96,42 @@ export default {
 
 <style scoped lang="scss">
 
-$primary-text-color: #5f6fa2;
-
 .user-profile {
   .top-heading {
     display: flex;
     align-items: center;
 
     .user-name {
-      margin-bottom: 5px;
-      font-size: 17px;
+      margin-bottom: 0.313em;
+      font-size: 1.063em;
       font-weight: 500;
       color: #fff;
     }
 
     .sub-info {
-      font-size: 14px;
+      font-size: 0.875em;
       color: #556089;
     }
   }
 
   .additional-data {
-    margin-top: 30px;
+    margin-top: 1.875em;
 
     .item {
-      margin-bottom: 10px;
+      margin-bottom: 0.625em;
 
       &:last-child {
         margin-bottom: 0;
       }
 
       .label {
-        margin-bottom: 5px;
+        margin-bottom: 0.313em;
         color: #bfbfbf;
-        font-size: 14px;
+        font-size: 0.875em;
       }
       .value {
         color: $primary-text-color;
-        font-size: 15px;
+        font-size: 0.938em;
       }
     }
   }

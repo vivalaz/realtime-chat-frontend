@@ -58,12 +58,6 @@ export default {
 
 <style lang="scss">
 
-$sidebar-header-height: 30px;
-$sidebar-footer-height: 45px;
-$dark-accent-color: #282a36;
-$dark-secondary-color: #44475b;
-$dark-blue-color: #578ec9;
-
 @mixin sidebarButtonStyle() {
   display: flex;
   justify-content: center;
@@ -87,6 +81,7 @@ $dark-blue-color: #578ec9;
   min-width: 320px;
   height: 100%;
   background-color: $dark-accent-color;
+  border-right: 3px solid $dark-secondary-color;
   overflow: hidden;
 
   .ps {
@@ -108,7 +103,7 @@ $dark-blue-color: #578ec9;
     box-shadow: 0 0 27px 1px rgba(34, 45, 56, 1);
     &-button {
       height: $sidebar-header-height;
-      font-size: 13px;
+      font-size: 0.813em;
       @include sidebarButtonStyle();
     }
   }
@@ -118,12 +113,12 @@ $dark-blue-color: #578ec9;
     display: flex;
     height: $sidebar-footer-height;
     width: 100%;
-    box-shadow: 0 0 27px 1px rgba(34, 45, 56, 1);
+    box-shadow: 0 0 1.688em 0.063em rgba(34, 45, 56, 1);
 
     .sidebar-footer-button {
       width: 50%;
       height: 100%;
-      font-size: 14px;
+      font-size: 0.875em;
       @include sidebarButtonStyle();
     }
   }

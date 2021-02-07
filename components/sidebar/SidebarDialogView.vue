@@ -1,21 +1,23 @@
 <template>
   <perfect-scrollbar>
-    <div v-if="!chats.length" class="empty-sidebar">
-      У Вас нет активных чатов!
-    </div>
+    <div class="dialogs-wrapper">
+      <div v-if="!chats.length" class="empty-sidebar">
+        У Вас нет активных чатов!
+      </div>
 
-    <template v-else>
-      <DialogItem
-        v-for="chat in chats"
-        :key="chat.id"
-        :avatar="chat.with.photoURL"
-        :name="chat.with.displayName"
-        :message="chat.lastMessage || '-'"
-        :active="isActiveDialog(chat.id)"
-        :time="chat.timestamp"
-        @click.native="startChatWithContact(chat.id)"
-      />
-    </template>
+      <template v-else>
+        <DialogItem
+          v-for="chat in chats"
+          :key="chat.id"
+          :avatar="chat.with.photoURL"
+          :name="chat.with.displayName"
+          :message="chat.lastMessage || '-'"
+          :active="isActiveDialog(chat.id)"
+          :time="chat.timestamp"
+          @click.native="startChatWithContact(chat.id)"
+        />
+      </template>
+    </div>
   </perfect-scrollbar>
 </template>
 
@@ -48,3 +50,11 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+
+.dialogs-wrapper {
+  padding: 0.625em;
+}
+
+</style>

@@ -19,11 +19,12 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-color: $dark-accent-color;
 
   span {
     font-weight: 600;
-    font-size: 22px;
-    color: #282a36;
+    font-size: 1.375em;
+    color: $dark-secondary-color;
   }
 }
 

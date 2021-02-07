@@ -69,7 +69,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100% - 10px);
+    width: calc(100% - 0.625em);
     height: 100%;
     background: rgba(0, 0, 0, .5);
     border-radius: 50%;
@@ -84,7 +84,7 @@ export default {
   .upload-icon-svg {
     position: absolute;
     top: 50%;
-    left: calc(50% - 5px);
+    left: calc(50% - 0.313em);
     width: 25px;
     fill: #fff;
     transform: translate(-50%, -50%);

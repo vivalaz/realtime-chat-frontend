@@ -50,17 +50,14 @@ export default {
 
 <style scoped lang="scss">
 
-$primary-text-color: #5f6fa2;
-$dark-orange-color: #ffb965;
-
 .profile-editing {
   header {
     display: flex;
     justify-content: flex-end;
-    padding: 10px 15px 0 0;
+    padding: 0.625em 0.938em 0 0;
 
     .edit-profile-btn {
-      font-size: 13px;
+      font-size: 0.813em;
       color: $primary-text-color;
       font-weight: 500;
       cursor: pointer;
@@ -74,7 +71,7 @@ $dark-orange-color: #ffb965;
 
   main {
     position: relative;
-    padding: 25px 15px 0 15px;
+    padding: 25px 0.938em 0 0.938em;
     z-index: 1;
   }
 }

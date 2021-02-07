@@ -91,7 +91,7 @@ export default {
 
 .search-contacts-view {
   header {
-    padding: 15px 15px 0 15px;
+    padding: 0.938em 0.938em 0 0.938em;
   }
 }
 

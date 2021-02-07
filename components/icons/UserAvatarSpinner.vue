@@ -50,7 +50,7 @@ export default {
   position: absolute;
   max-width: 100%;
   width: 100%;
-  transform: translate3d(-5px, -5px, 0);
+  transform: translate3d(-0.313em, -0.313em, 0);
 }
 
 </style>
