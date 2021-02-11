@@ -1,6 +1,6 @@
 <template>
   <div class="chat-message-send">
-    <textarea v-model="message" class="message-input" placeholder="Введите сообщение..." />
+    <textarea v-model="message" class="message-input" placeholder="Введите сообщение..." @input="typing" />
 
     <chat-button :disabled="!message" @click.native="sendMessage">
       Отправить
@@ -10,20 +10,51 @@
 
 <script>
 import ChatButton from '~/components/ChatButton'
+
+const debouncer = (func, wait, immediate) => {
+  let timeout
+
+  return function () {
+    const context = this
+    const args = arguments
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      timeout = null
+      if (!immediate) {
+        func.apply(context, args)
+      }
+    }, wait)
+    if (immediate && !timeout) {
+      func.apply(context, args)
+    }
+  }
+}
+
 export default {
   name: 'ChatMessageInput',
   components: { ChatButton },
+  props: {
+    socket: {
+      required: false,
+      default: null,
+      type: Object
+    }
+  },
   data () {
     return {
       message: ''
     }
   },
   methods: {
-    async sendMessage () {
-      await this.$axios.post(`/chat/temp-send/${this.$route.params.chat}`, {
-        message: this.message,
-        id: this.$route.params.chat
-      })
+    typing () {
+      this.socket.emit('chat::typing')
+      this.cancelTyping()
+    },
+    cancelTyping: debouncer(function () {
+      this.socket.emit('chat::cancel-typing')
+    }, 3000),
+    sendMessage () {
+      this.socket.emit('chat::send-message', this.message)
 
       this.message = ''
     }
@@ -36,7 +67,6 @@ export default {
 .chat-message-send {
   display: flex;
   width: 100%;
-  padding: 0.938em 1.875em;
 
   .message-input {
     border: none;

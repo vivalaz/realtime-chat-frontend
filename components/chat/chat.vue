@@ -2,16 +2,53 @@
   <div class="chat">
     <Messages />
 
-    <ChatMessageSend />
+    <footer>
+      <div v-if="isTyping" class="typing-wrapper">
+        <span>
+          Печатает...
+        </span>
+      </div>
+
+      <ChatMessageSend :socket="socket" />
+    </footer>
   </div>
 </template>
 
 <script>
 import ChatMessageSend from '~/components/chat/ChatMessageSend'
 import Messages from '~/components/chat/Messages'
+
 export default {
   name: 'Chat',
-  components: { Messages, ChatMessageSend }
+  components: { Messages, ChatMessageSend },
+  data () {
+    return {
+      socket: null,
+      isTyping: false
+    }
+  },
+  beforeMount () {
+    this.socket = this.$nuxtSocket({
+      name: 'default',
+      channel: '/chat',
+      query: {
+        chat_id: this.$route.params.chat,
+        user_id: this.$store.state.auth.user.uid
+      }
+    })
+
+    this.socket.on('chat::receive-message', (data) => {
+      // todo if scrollTop < X scroll to end of chat
+      this.$store.dispatch('chat/addMessage', data)
+    })
+
+    this.socket.on('chat::typing', () => {
+      this.isTyping = true
+    })
+    this.socket.on('chat::cancel-typing', () => {
+      this.isTyping = false
+    })
+  }
 }
 </script>
 
@@ -23,6 +60,16 @@ export default {
   justify-content: space-between;
   height: 100%;
   background-color: $dark-accent-color;
+
+  footer {
+    padding: 0 1.875em 0.938em 1.875em;
+
+    .typing-wrapper {
+      margin-bottom: .25em;
+      color: #fff;
+      font-size: 14px;
+    }
+  }
 }
 
 </style>

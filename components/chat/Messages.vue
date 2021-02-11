@@ -53,7 +53,7 @@ export default {
 <style scoped lang="scss">
 
 .chat-messages {
-  padding: 0.938em 1.875em;
+  padding: 0.938em 1.875em 0 1.875em;
 
   .chat-message {
     position: relative;

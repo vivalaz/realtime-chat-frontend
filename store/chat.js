@@ -8,10 +8,16 @@ export const mutations = {
   },
   SET_MESSAGES (state, payload = []) {
     state.messages = payload
+  },
+  PUSH_TO_MESSAGES (state, payload) {
+    state.messages.push(payload)
   }
 }
 export const middleware = {}
 export const actions = {
+  addMessage ({ commit }, message) {
+    commit('PUSH_TO_MESSAGES', message)
+  },
   async getChats ({ commit }) {
     try {
       const response = await this.$axios.$get('/chat/chats')

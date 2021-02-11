@@ -58,7 +58,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'nuxt-socket-io'
   ],
 
   styleResources: {
@@ -74,6 +75,16 @@ export default {
 
   env: {
     debounceTimeout: 600
+  },
+
+  io: {
+    sockets: [
+      {
+        name: 'default',
+        url: 'http://localhost:3002',
+        default: true
+      }
+    ]
   },
 
   auth: {

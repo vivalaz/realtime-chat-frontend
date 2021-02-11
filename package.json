@@ -16,6 +16,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "core-js": "^3.8.2",
     "nuxt": "^2.14.12",
+    "nuxt-socket-io": "^1.1.14",
     "vue2-perfect-scrollbar": "^1.5.0",
     "vuelidate": "^0.7.6"
   },

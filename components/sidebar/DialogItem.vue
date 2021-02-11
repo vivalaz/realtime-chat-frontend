@@ -70,7 +70,7 @@ export default {
   display: flex;
   margin-top: 0.313em;
   width: 100%;
-  padding: 0.938em 0.938em;
+  padding: 0.6em 0.938em;
   border-radius: 0.313em;
   background-color: $dark-accent-color;
   cursor: pointer;
