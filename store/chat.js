@@ -29,17 +29,6 @@ export const actions = {
       console.error(e)
     }
   },
-  async createChat (_, id) {
-    try {
-      const response = await this.$axios.post(`/chat/create-chat-with/${id}`)
-
-      if (response && response.data && response.data.id) {
-        this.$router.push(`/${response.data.id}`)
-      }
-    } catch (e) {
-      console.error(e)
-    }
-  },
   async openChat ({ commit }, chatWithUserID) {
     try {
       const response = await this.$axios.post(`/chat/open-chat/${chatWithUserID}`)

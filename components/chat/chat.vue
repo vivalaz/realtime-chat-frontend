@@ -30,10 +30,10 @@ export default {
   beforeMount () {
     this.socket = this.$nuxtSocket({
       name: 'default',
-      channel: '/chat',
       query: {
         chat_id: this.$route.params.chat,
-        user_id: this.$store.state.auth.user.uid
+        user_id: this.$store.state.auth.user.uid,
+        token: localStorage.getItem('auth._token.local')
       }
     })
 

@@ -14,6 +14,7 @@
           :message="chat.lastMessage || '-'"
           :active="isActiveDialog(chat.id)"
           :time="chat.timestamp"
+          :online="idsOfOnlineUsers.includes(chat.with.id)"
           @click.native="startChatWithContact(chat.id)"
         />
       </template>
@@ -32,6 +33,18 @@ export default {
     DialogItem,
     PerfectScrollbar
   },
+  props: {
+    socket: {
+      required: false,
+      default: null,
+      type: Object
+    }
+  },
+  data () {
+    return {
+      idsOfOnlineUsers: []
+    }
+  },
   computed: {
     ...mapState('chat', [
       'chats'
@@ -39,6 +52,17 @@ export default {
   },
   beforeMount () {
     this.$store.dispatch('chat/getChats')
+
+    this.socket.on('user::user-online', (id) => {
+      this.idsOfOnlineUsers.push(id)
+    })
+    this.socket.on('user::user-offline', (id) => {
+      const idx = this.idsOfOnlineUsers.indexOf(id)
+
+      if (idx > -1) {
+        this.idsOfOnlineUsers.splice(idx, 1)
+      }
+    })
   },
   methods: {
     isActiveDialog (id) {

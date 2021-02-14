@@ -9,9 +9,9 @@
       </div>
     </header>
 
-    <sidebar-dialog-view v-if="isDialogsVisible" />
+    <sidebar-dialog-view v-if="isDialogsVisible" :socket="userSocket" />
     <sidebar-profile-view v-else-if="isProfileVisible" />
-    <sidebar-search-contacts-view v-else-if="isSearchContactVisible" />
+    <sidebar-search-contacts-view v-else-if="isSearchContactVisible" :user-socket="userSocket" />
 
     <footer class="sidebar-footer">
       <div v-if="isDialogsVisible" class="sidebar-footer-button" @click="showProfile">
@@ -36,12 +36,35 @@ import SidebarSearchContactsView from '~/components/sidebar/SidebarSearchContact
 export default {
   name: 'Sidebar',
   components: { SidebarSearchContactsView, SidebarProfileView, SidebarDialogView },
+  data () {
+    return {
+      userSocket: null
+    }
+  },
   computed: {
     ...mapGetters('sidebar', [
       'isDialogsVisible',
       'isProfileVisible',
       'isSearchContactVisible'
     ])
+  },
+  beforeMount () {
+    this.userSocket = this.$nuxtSocket({
+      name: 'default',
+      query: {
+        user_id: this.$store.state.auth.user.uid,
+        token: localStorage.getItem('auth._token.local')
+      }
+    })
+
+    this.userSocket.on('user::created-new-chat', (id) => {
+      this.$router.push(`/${id}`)
+      this.showDialogs()
+    })
+
+    this.userSocket.on('user::append-chat', () => {
+      this.$store.dispatch('chat/getChats')
+    })
   },
   methods: {
     ...mapActions('sidebar', [

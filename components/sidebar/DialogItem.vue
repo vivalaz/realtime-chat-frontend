@@ -7,7 +7,7 @@
     }"
   >
     <div class="avatar">
-      <UserAvatar :src="avatar" :name="name" />
+      <UserAvatar :src="avatar" :name="name" :online="online" />
     </div>
 
     <div class="data">
@@ -53,7 +53,8 @@ export default {
       required: false,
       default: null,
       type: Number
-    }
+    },
+    online: Boolean
   },
   methods: {
     getDate (timestamp) {
