@@ -14,7 +14,7 @@
           :message="chat.lastMessage || '-'"
           :active="isActiveDialog(chat.id)"
           :time="chat.timestamp"
-          :online="idsOfOnlineUsers.includes(chat.with.id)"
+          :online="onlineUsers.includes(chat.with.id)"
           @click.native="startChatWithContact(chat.id)"
         />
       </template>
@@ -24,7 +24,7 @@
 
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import DialogItem from '~/components/sidebar/DialogItem'
 
 export default {
@@ -40,31 +40,23 @@ export default {
       type: Object
     }
   },
-  data () {
-    return {
-      idsOfOnlineUsers: []
-    }
-  },
   computed: {
     ...mapState('chat', [
-      'chats'
+      'chats',
+      'onlineUsers'
     ])
   },
   beforeMount () {
     this.$store.dispatch('chat/getChats')
 
-    this.socket.on('user::user-online', (id) => {
-      this.idsOfOnlineUsers.push(id)
-    })
-    this.socket.on('user::user-offline', (id) => {
-      const idx = this.idsOfOnlineUsers.indexOf(id)
-
-      if (idx > -1) {
-        this.idsOfOnlineUsers.splice(idx, 1)
-      }
-    })
+    this.socket.on('user::user-online', this.setOnlineUser)
+    this.socket.on('user::user-offline', this.removeOnlineUser)
   },
   methods: {
+    ...mapActions('chat', [
+      'setOnlineUser',
+      'removeOnlineUser'
+    ]),
     isActiveDialog (id) {
       return this.$route.params.chat === id
     },

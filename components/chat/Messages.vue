@@ -1,6 +1,6 @@
 <template>
   <perfect-scrollbar>
-    <div class="chat-messages">
+    <div data-type="messages" class="chat-messages">
       <div
         v-for="message in messages"
         :key="message.timestamp"
@@ -41,6 +41,11 @@ export default {
     user () {
       return this.$store.state.auth.user
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      document.querySelector('[data-type="messages"]').scrollIntoView(false)
+    })
   },
   methods: {
     getDate (timestamp) {

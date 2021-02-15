@@ -1,7 +1,13 @@
 export const state = () => ({
   chats: [],
-  messages: []
+  messages: [],
+  onlineUsers: []
 })
+export const getters = {
+  getActiveChatInfo: state => (key) => {
+    return state.chats.find(chat => chat.id === key)
+  }
+}
 export const mutations = {
   SET_CHATS (state, payload = []) {
     state.chats = payload
@@ -11,12 +17,28 @@ export const mutations = {
   },
   PUSH_TO_MESSAGES (state, payload) {
     state.messages.push(payload)
+  },
+  PUSH_TO_ONLINE_USERS (state, payload) {
+    state.onlineUsers.push(payload)
+  },
+  REMOVE_FROM_ONLINE_USERS (state, payload) {
+    const idx = state.onlineUsers.indexOf(payload)
+
+    if (idx > -1) {
+      state.onlineUsers.splice(idx, 1)
+    }
   }
 }
 export const middleware = {}
 export const actions = {
   addMessage ({ commit }, message) {
     commit('PUSH_TO_MESSAGES', message)
+  },
+  setOnlineUser ({ commit }, id) {
+    commit('PUSH_TO_ONLINE_USERS', id)
+  },
+  removeOnlineUser ({ commit }, id) {
+    commit('REMOVE_FROM_ONLINE_USERS', id)
   },
   async getChats ({ commit }) {
     try {

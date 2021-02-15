@@ -1,6 +1,11 @@
 <template>
   <div class="chat-message-send">
-    <textarea v-model="message" class="message-input" placeholder="Введите сообщение..." @input="typing" />
+    <textarea
+      v-model="message"
+      class="message-input"
+      placeholder="Введите сообщение..."
+      @keypress="typing"
+    />
 
     <chat-button :disabled="!message" @click.native="sendMessage">
       Отправить
@@ -46,9 +51,17 @@ export default {
     }
   },
   methods: {
-    typing () {
-      this.socket.emit('chat::typing')
-      this.cancelTyping()
+    typing ($event) {
+      if ($event.keyCode === 13 || $event.key === 'Enter') {
+        $event.preventDefault()
+
+        this.sendMessage()
+
+        return true
+      } else {
+        this.socket.emit('chat::typing')
+        this.cancelTyping()
+      }
     },
     cancelTyping: debouncer(function () {
       this.socket.emit('chat::cancel-typing')
@@ -57,6 +70,7 @@ export default {
       this.socket.emit('chat::send-message', this.message)
 
       this.message = ''
+      this.cancelTyping()
     }
   }
 }

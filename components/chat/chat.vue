@@ -1,5 +1,16 @@
 <template>
   <div class="chat">
+    <header>
+      <div v-if="activeChat" class="user-info">
+        <div class="name">
+          {{ activeChat.with.displayName }}
+        </div>
+        <div v-if="onlineUsers.includes(activeChat.with.id)" class="status">
+          Онлайн
+        </div>
+      </div>
+    </header>
+
     <Messages />
 
     <footer>
@@ -15,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 import ChatMessageSend from '~/components/chat/ChatMessageSend'
 import Messages from '~/components/chat/Messages'
 
@@ -27,6 +39,18 @@ export default {
       isTyping: false
     }
   },
+  computed: {
+    ...mapState('chat', [
+      'onlineUsers'
+    ]),
+    ...mapGetters('chat', [
+      'getActiveChatInfo'
+    ]),
+
+    activeChat () {
+      return this.getActiveChatInfo(this.$route.params.chat)
+    }
+  },
   beforeMount () {
     this.socket = this.$nuxtSocket({
       name: 'default',
@@ -37,9 +61,14 @@ export default {
       }
     })
 
-    this.socket.on('chat::receive-message', (data) => {
-      // todo if scrollTop < X scroll to end of chat
-      this.$store.dispatch('chat/addMessage', data)
+    this.socket.on('chat::receive-message', async (data) => {
+      this.isTyping = false
+
+      await this.$store.dispatch('chat/addMessage', data)
+
+      this.$nextTick(() => {
+        document.querySelector('[data-type="messages"]').scrollIntoView(false)
+      })
     })
 
     this.socket.on('chat::typing', () => {
@@ -61,11 +90,35 @@ export default {
   height: 100%;
   background-color: $dark-accent-color;
 
+  header {
+    min-height: 49px;
+    padding: 15px 1.875em 15px 1.875em;
+    background-color: $dark-secondary-color;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+
+      .name {
+        color: #fff;
+      }
+
+      .status {
+        margin-left: 0.5em;
+        font-size: 13px;
+        color: #ccc;
+      }
+    }
+  }
+
   footer {
-    padding: 0 1.875em 0.938em 1.875em;
+    position: relative;
+    padding: 0.938em 1.875em 0.938em 1.875em;
 
     .typing-wrapper {
-      margin-bottom: .25em;
+      position: absolute;
+      top: -2px;
+      left: 2.1em;
       color: #fff;
       font-size: 14px;
     }
