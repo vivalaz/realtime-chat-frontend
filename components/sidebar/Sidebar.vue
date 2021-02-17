@@ -62,7 +62,7 @@ export default {
       this.showDialogs()
     })
 
-    this.userSocket.on('user::append-chat', () => {
+    this.userSocket.on('user::update-chats', () => {
       this.$store.dispatch('chat/getChats')
     })
   },

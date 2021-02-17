@@ -70,7 +70,10 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:3001/api'
+    baseURL: 'http://10.10.10.12:3009/api'
+  },
+  server: {
+    host: '10.10.10.12'
   },
 
   env: {
@@ -81,7 +84,7 @@ export default {
     sockets: [
       {
         name: 'default',
-        url: 'http://localhost:3002',
+        url: 'http://10.10.10.12:3010',
         default: true
       }
     ]
