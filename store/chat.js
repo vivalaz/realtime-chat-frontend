@@ -19,7 +19,11 @@ export const mutations = {
     state.messages.push(payload)
   },
   PUSH_TO_ONLINE_USERS (state, payload) {
-    state.onlineUsers.push(payload)
+    if (Array.isArray(payload)) {
+      state.onlineUsers.push(...payload)
+    } else {
+      state.onlineUsers.push(payload)
+    }
   },
   REMOVE_FROM_ONLINE_USERS (state, payload) {
     const idx = state.onlineUsers.indexOf(payload)
@@ -35,6 +39,7 @@ export const actions = {
     commit('PUSH_TO_MESSAGES', message)
   },
   setOnlineUser ({ commit }, id) {
+    console.log('online id', id)
     commit('PUSH_TO_ONLINE_USERS', id)
   },
   removeOnlineUser ({ commit }, id) {
