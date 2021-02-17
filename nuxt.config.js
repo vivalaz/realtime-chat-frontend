@@ -37,6 +37,9 @@ export default {
   plugins: [
     {
       src: '~/plugins/vuelidate'
+    },
+    {
+      src: '~/plugins/web-notification'
     }
   ],
 

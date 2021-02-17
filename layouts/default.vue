@@ -12,7 +12,10 @@
 import Sidebar from '~/components/sidebar/Sidebar'
 
 export default {
-  components: { Sidebar }
+  components: { Sidebar },
+  mounted () {
+    this.$webNotification.requestPermission()
+  }
 }
 </script>
 

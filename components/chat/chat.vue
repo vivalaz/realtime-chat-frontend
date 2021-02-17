@@ -70,12 +70,12 @@ export default {
     this.socket.on('chat::receive-message', async (data) => {
       this.isTyping = false
 
-      await this.$store.dispatch('chat/addMessage', data)
+      await this.updateMessages(data)
 
-      this.$nextTick(() => {
-        document.querySelector('[data-type="messages"]').scrollIntoView(false)
-      })
+      this.$webNotification.notify('Получено новое сообщение!', data)
     })
+
+    this.socket.on('chat::message-sent', this.updateMessages)
 
     this.socket.on('chat::typing', () => {
       this.isTyping = true
@@ -83,6 +83,16 @@ export default {
     this.socket.on('chat::cancel-typing', () => {
       this.isTyping = false
     })
+  },
+  methods: {
+    async updateMessages (data) {
+      this.$store.dispatch('chat/getChats')
+      await this.$store.dispatch('chat/addMessage', data)
+
+      this.$nextTick(() => {
+        document.querySelector('[data-type="messages"]').scrollIntoView(false)
+      })
+    }
   }
 }
 </script>
