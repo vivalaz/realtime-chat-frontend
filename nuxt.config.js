@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'realtime-chat-frontend',
+    title: 'Чат',
     htmlAttrs: {
       lang: 'en'
     },
@@ -70,10 +70,11 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://10.10.10.12:3009/api'
+    // baseURL: 'http://10.10.10.12:3009/api'
+    baseURL: 'http://localhost:3001/api'
   },
   server: {
-    host: '10.10.10.12'
+    // host: '10.10.10.12'
   },
 
   env: {
@@ -84,7 +85,8 @@ export default {
     sockets: [
       {
         name: 'default',
-        url: 'http://10.10.10.12:3010',
+        // url: 'http://10.10.10.12:3010',
+        url: 'http://localhost:3002',
         default: true
       }
     ]

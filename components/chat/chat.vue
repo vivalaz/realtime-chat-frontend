@@ -1,14 +1,20 @@
 <template>
   <div class="chat">
     <header>
-      <div v-if="activeChat" class="user-info">
-        <div class="name">
-          {{ activeChat.with.displayName }}
-        </div>
-        <div v-if="onlineUsers.includes(activeChat.with.id)" class="status">
-          Онлайн
-        </div>
+      <div class="user-info">
+        <template v-if="activeChat">
+          <div class="name">
+            {{ activeChat.with.displayName }}
+          </div>
+          <div v-if="onlineUsers.includes(activeChat.with.id)" class="status">
+            Онлайн
+          </div>
+        </template>
       </div>
+
+      <NuxtLink to="/" class="close-chat-button">
+        Закрыть чат
+      </NuxtLink>
     </header>
 
     <Messages />
@@ -91,6 +97,9 @@ export default {
   background-color: $dark-accent-color;
 
   header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     min-height: 49px;
     padding: 15px 1.875em 15px 1.875em;
     background-color: $dark-secondary-color;
@@ -107,6 +116,22 @@ export default {
         margin-left: 0.5em;
         font-size: 13px;
         color: #ccc;
+      }
+    }
+
+    .close-chat-button {
+      border-radius: 0.3125em;
+      padding: 0.5em 0.825em;
+      background-color: $dark-accent-color;
+      font-size: 0.8125em;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .35s ease;
+
+      &:hover {
+        background-color: $dark-orange-color;
+        color: #333;
       }
     }
   }

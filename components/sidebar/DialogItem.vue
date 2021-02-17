@@ -106,7 +106,7 @@ export default {
 
     .time {
       position: absolute;
-      top: 0;
+      top: -7px;
       right: 0;
       font-size: 0.688em;
       font-weight: 400;
