@@ -1,7 +1,9 @@
 <template>
   <button class="chat-button" :disabled="disabled">
     <slot v-if="!loading" />
-    <template v-else>Загрузка...</template>
+    <template v-else>
+      Загрузка...
+    </template>
   </button>
 </template>
 
@@ -17,26 +19,24 @@ export default {
 
 <style lang="scss">
 
-$dark-secondary-color: #44475b;
-
 .chat-button {
   border: none;
   outline: none;
   display: flex;
-  padding: 10px 0;
+  padding: 0.625em 0;
   justify-content: center;
   align-items: center;
   width: 100%;
   color: #fff;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 0.875em;
   background-color: $dark-secondary-color;
   cursor: pointer;
-  border-radius: 2px;
-  transition: background .35s ease;
+  border-radius: 0.125em;
+  transition: all .35s ease;
 
   &:hover {
-    background: #578ec9;
+    background-color: #578ec9;
   }
 
   &:disabled {

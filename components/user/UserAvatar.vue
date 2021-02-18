@@ -2,7 +2,8 @@
   <div
     class="user-avatar"
     :class="{
-      'user-avatar__lg': lg
+      'user-avatar__lg': lg,
+      'user-avatar__online': online
     }"
     :title="name"
   >
@@ -34,7 +35,8 @@ export default {
       type: String,
       default: ''
     },
-    lg: Boolean
+    lg: Boolean,
+    online: Boolean
   },
   data () {
     return {
@@ -77,9 +79,6 @@ export default {
 
 <style scoped lang="scss">
 
-$avatar-size: 40px;
-$avatar-size-lg: 55px;
-
 @mixin setAvatarSize($size: $avatar-size) {
   width: $size;
   min-width: $size;
@@ -87,10 +86,13 @@ $avatar-size-lg: 55px;
 }
 
 .user-avatar {
+  position: relative;
   @include setAvatarSize();
-  margin-right: 10px;
+  margin-right: 0.625em;
   border-radius: 50%;
+  border: 2px solid $dark-accent-color;
   overflow: hidden;
+  transition: all .35s ease;
 
   img {
     width: 100%;
@@ -114,6 +116,10 @@ $avatar-size-lg: 55px;
     .default-avatar {
       font-size: 18px;
     }
+  }
+
+  &__online {
+    border-color: #27cc27;
   }
 }
 </style>

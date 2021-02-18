@@ -1,8 +1,40 @@
 <template>
-  <div>
-    <Nuxt />
+  <div class="chat-container">
+    <Sidebar />
+
+    <div class="dialog-container">
+      <Nuxt />
+    </div>
   </div>
 </template>
+
+<script>
+import Sidebar from '~/components/sidebar/Sidebar'
+
+export default {
+  components: { Sidebar },
+  mounted () {
+    this.$webNotification.requestPermission()
+  }
+}
+</script>
+
+<style lang="scss">
+
+.chat-container {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 100vh;
+
+  .dialog-container {
+    width: 100%;
+  }
+}
+
+</style>
+
+<style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
 
 <style>
 html {

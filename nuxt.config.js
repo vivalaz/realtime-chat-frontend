@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'realtime-chat-frontend',
+    title: 'Чат',
     htmlAttrs: {
       lang: 'en'
     },
@@ -37,6 +37,9 @@ export default {
   plugins: [
     {
       src: '~/plugins/vuelidate'
+    },
+    {
+      src: '~/plugins/web-notification'
     }
   ],
 
@@ -46,19 +49,50 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    ['@nuxtjs/date-fns', {
+      locales: ['ru'],
+      defaultLocale: 'ru'
+    }]
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/style-resources',
+    'nuxt-socket-io'
   ],
+
+  styleResources: {
+    scss: [
+      'assets/scss/_variables.scss',
+    ]
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
+    // baseURL: 'http://10.10.10.12:3009/api'
     baseURL: 'http://localhost:3001/api'
+  },
+  server: {
+    // host: '10.10.10.12'
+  },
+
+  env: {
+    debounceTimeout: 600
+  },
+
+  io: {
+    sockets: [
+      {
+        name: 'default',
+        // url: 'http://10.10.10.12:3010',
+        url: 'http://localhost:3002',
+        default: true
+      }
+    ]
   },
 
   auth: {
@@ -74,7 +108,7 @@ export default {
             method: 'post'
           },
           user: {
-            url: '/user',
+            url: '/user/profile',
             method: 'get',
             propertyName: false
           },
@@ -85,8 +119,25 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend(config, ctx) {
+      if(ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+          options: {
+            fix: true
+          }
+        })
+      }
+    }
+  },
   eslint: {
     cache: false
+  },
+  options: {
+    fix: true
   }
 }
