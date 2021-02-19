@@ -50,10 +50,8 @@
 
 <script>
 import { required, minLength, sameAs, email } from 'vuelidate/lib/validators'
-import ServerErrorNotification from '~/components/ui/ServerErrorNotification'
 
 export default {
-  components: { ServerErrorNotification },
   layout: 'auth',
   middleware: 'guest',
   data () {

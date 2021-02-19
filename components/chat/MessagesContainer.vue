@@ -30,7 +30,7 @@ import { mapState } from 'vuex'
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 
 export default {
-  name: 'Messages',
+  name: 'MessagesContainer',
   components: {
     PerfectScrollbar
   },

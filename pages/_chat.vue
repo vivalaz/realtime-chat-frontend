@@ -1,13 +1,11 @@
 <template>
-  <Chat />
+  <ChatContainer />
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Chat from '~/components/chat/chat'
 
 export default {
-  components: { Chat },
   middleware: ['auth', 'chatable-id'],
   head () {
     return {

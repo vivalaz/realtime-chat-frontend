@@ -17,7 +17,7 @@
       </NuxtLink>
     </header>
 
-    <Messages />
+    <MessagesContainer />
 
     <footer>
       <div v-if="isTyping" class="typing-wrapper">
@@ -26,19 +26,16 @@
         </span>
       </div>
 
-      <ChatMessageSend :socket="socket" />
+      <SendMessageContainer :socket="socket" />
     </footer>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import ChatMessageSend from '~/components/chat/ChatMessageSend'
-import Messages from '~/components/chat/Messages'
 
 export default {
-  name: 'Chat',
-  components: { Messages, ChatMessageSend },
+  name: 'ChatContainer',
   data () {
     return {
       socket: null,
