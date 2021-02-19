@@ -20,7 +20,7 @@
         />
       </main>
 
-      <ServerError v-else :data="error" />
+      <ServerErrorNotification v-else :data="error" />
     </div>
   </perfect-scrollbar>
 </template>
@@ -29,13 +29,13 @@
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import { mapState, mapMutations } from 'vuex'
 import DialogItem from '~/components/sidebar/DialogItem'
-import ServerError from '~/components/ServerError'
+import ServerErrorNotification from '~/components/ui/ServerErrorNotification'
 import debouncer from '~/plugins/debouncer'
 
 export default {
   name: 'SidebarSearchContactsView',
   components: {
-    ServerError,
+    ServerErrorNotification,
     DialogItem,
     PerfectScrollbar
   },

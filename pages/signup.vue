@@ -28,15 +28,15 @@
           :has-error="$v.passwordConfirm.$invalid"
         />
 
-        <ChatButton
+        <SmartButton
           :disabled="processing || $v.$anyError"
           :loading="processing"
         >
           Зарегестрироваться
-        </ChatButton>
+        </SmartButton>
       </form>
 
-      <ServerError v-if="error" :data="error" />
+      <ServerErrorNotification v-if="error" :data="error" />
 
       <div class="description">
         Уже зарегестрированы? <br>
@@ -50,10 +50,10 @@
 
 <script>
 import { required, minLength, sameAs, email } from 'vuelidate/lib/validators'
-import ServerError from '~/components/ServerError'
+import ServerErrorNotification from '~/components/ui/ServerErrorNotification'
 
 export default {
-  components: { ServerError },
+  components: { ServerErrorNotification },
   layout: 'auth',
   middleware: 'guest',
   data () {

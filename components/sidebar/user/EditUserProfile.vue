@@ -16,24 +16,24 @@
         reference="description"
         label="О себе"
       />
-      <ChatButton
+      <SmartButton
         :disabled="processing"
         :loading="processing"
       >
         Редактировать
-      </ChatButton>
+      </SmartButton>
     </form>
   </div>
 </template>
 
 <script>
-import InputWithLabel from '~/components/InputWithLabel'
-import ChatButton from '~/components/ChatButton'
+import InputWithLabel from '~/components/ui/InputWithLabel'
+import SmartButton from '~/components/ui/SmartButton'
 
 export default {
   name: 'EditUserProfile',
   components: {
-    ChatButton,
+    SmartButton,
     InputWithLabel
   },
   data () {

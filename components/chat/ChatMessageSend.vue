@@ -7,19 +7,19 @@
       @keypress="typing"
     />
 
-    <chat-button :disabled="!message" @click.native="sendMessage">
+    <smart-button :disabled="!message" @click.native="sendMessage">
       Отправить
-    </chat-button>
+    </smart-button>
   </div>
 </template>
 
 <script>
-import ChatButton from '~/components/ChatButton'
+import SmartButton from '~/components/ui/SmartButton'
 import debouncer from '~/plugins/debouncer'
 
 export default {
   name: 'ChatMessageInput',
-  components: { ChatButton },
+  components: { SmartButton },
   props: {
     socket: {
       required: false,
@@ -82,7 +82,7 @@ export default {
     }
   }
 
-  .chat-button {
+  .smart-button {
     width: auto;
     padding: 0.625em 0.938em;
     border-radius: 0 0.125em 0.125em 0;

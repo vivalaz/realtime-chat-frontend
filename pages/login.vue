@@ -21,15 +21,15 @@
           :has-error="$v.password.$invalid"
         />
 
-        <ChatButton
+        <SmartButton
           :disabled="processing || $v.$anyError"
           :loading="processing"
         >
           Войти
-        </ChatButton>
+        </SmartButton>
       </form>
 
-      <ServerError v-if="error" :data="error" />
+      <ServerErrorNotification v-if="error" :data="error" />
 
       <div class="description">
         Нет аккаунта для общения? <br>

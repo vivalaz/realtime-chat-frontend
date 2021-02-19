@@ -1,5 +1,5 @@
 <template>
-  <button class="chat-button" :disabled="disabled">
+  <button class="smart-button" :disabled="disabled">
     <slot v-if="!loading" />
     <template v-else>
       Загрузка...
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'ChatButton',
+  name: 'SmartButton',
   props: {
     disabled: Boolean,
     loading: Boolean
@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss">
 
-.chat-button {
+.smart-button {
   border: none;
   outline: none;
   display: flex;

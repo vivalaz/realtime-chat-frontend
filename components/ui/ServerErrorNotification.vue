@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'ServerError',
+  name: 'ServerErrorNotification',
   props: {
     data: {
       type: Object,

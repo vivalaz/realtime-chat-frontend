@@ -12,7 +12,7 @@
         </template>
       </div>
 
-      <NuxtLink to="/" class="close-chat-button">
+      <NuxtLink to="/" class="close-smart-button">
         Закрыть чат
       </NuxtLink>
     </header>
@@ -129,7 +129,7 @@ export default {
       }
     }
 
-    .close-chat-button {
+    .close-smart-button {
       border-radius: 0.3125em;
       padding: 0.5em 0.825em;
       background-color: $dark-accent-color;
