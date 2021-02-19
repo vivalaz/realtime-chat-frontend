@@ -28,15 +28,11 @@
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import { mapState, mapMutations } from 'vuex'
-import DialogItem from '~/components/sidebar/DialogItem'
-import ServerErrorNotification from '~/components/ui/ServerErrorNotification'
 import debouncer from '~/plugins/debouncer'
 
 export default {
   name: 'SidebarSearchContactsView',
   components: {
-    ServerErrorNotification,
-    DialogItem,
     PerfectScrollbar
   },
   props: {

@@ -25,12 +25,10 @@
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import { mapState, mapActions } from 'vuex'
-import DialogItem from '~/components/sidebar/DialogItem'
 
 export default {
   name: 'SidebarDialogView',
   components: {
-    DialogItem,
     PerfectScrollbar
   },
   props: {

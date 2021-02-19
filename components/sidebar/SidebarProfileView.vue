@@ -12,8 +12,8 @@
         </div>
       </header>
       <main>
-        <edit-user-profile v-if="isEditMode" @onEdit="closeEditMode" />
-        <user-profile v-else />
+        <EditUserProfile v-if="isEditMode" @onEdit="closeEditMode" />
+        <UserProfile v-else />
       </main>
     </div>
   </perfect-scrollbar>
@@ -21,14 +21,10 @@
 
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import UserProfile from '~/components/sidebar/user/UserProfile'
-import EditUserProfile from '~/components/sidebar/user/EditUserProfile'
 
 export default {
   name: 'SidebarSettingsView',
   components: {
-    EditUserProfile,
-    UserProfile,
     PerfectScrollbar
   },
   data () {

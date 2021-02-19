@@ -9,9 +9,9 @@
       </div>
     </header>
 
-    <sidebar-dialog-view v-if="isDialogsVisible" :socket="userSocket" />
-    <sidebar-profile-view v-else-if="isProfileVisible" />
-    <sidebar-search-contacts-view v-else-if="isSearchContactVisible" :user-socket="userSocket" />
+    <SidebarDialogView v-if="isDialogsVisible" :socket="userSocket" />
+    <SidebarProfileView v-else-if="isProfileVisible" />
+    <SidebarSearchContactsView v-else-if="isSearchContactVisible" :user-socket="userSocket" />
 
     <footer class="sidebar-footer">
       <div v-if="isDialogsVisible" class="sidebar-footer-button" @click="showProfile">
@@ -29,13 +29,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import SidebarDialogView from '~/components/sidebar/SidebarDialogView'
-import SidebarProfileView from '~/components/sidebar/SidebarProfileView'
-import SidebarSearchContactsView from '~/components/sidebar/SidebarSearchContactsView'
 
 export default {
   name: 'Sidebar',
-  components: { SidebarSearchContactsView, SidebarProfileView, SidebarDialogView },
   data () {
     return {
       userSocket: null

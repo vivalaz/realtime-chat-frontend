@@ -26,11 +26,9 @@
 </template>
 
 <script>
-import UserAvatar from '~/components/user/UserAvatar'
 
 export default {
   name: 'DialogItem',
-  components: { UserAvatar },
   props: {
     active: Boolean,
     small: Boolean,

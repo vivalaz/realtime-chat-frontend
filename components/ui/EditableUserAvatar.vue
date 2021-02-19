@@ -1,21 +1,16 @@
 <template>
   <div class="editable-user-avatar" @click="openFileExplorer">
-    <upload-icon />
-    <user-avatar-spinner v-if="processing" />
-    <user-avatar v-bind="{...$props, ...$attrs}" />
+    <UploadIcon />
+    <UserAvatarSpinner v-if="processing" />
+    <UserAvatar v-bind="{...$props, ...$attrs}" />
 
     <input ref="user-avatar-input" type="file" @input="onFileChange">
   </div>
 </template>
 
 <script>
-import UserAvatar from '~/components/user/UserAvatar'
-import UserAvatarSpinner from '~/components/icons/UserAvatarSpinner'
-import UploadIcon from '~/components/icons/UploadIcon'
-
 export default {
   name: 'EditableUserAvatar',
-  components: { UploadIcon, UserAvatarSpinner, UserAvatar },
   data () {
     return {
       file: null,

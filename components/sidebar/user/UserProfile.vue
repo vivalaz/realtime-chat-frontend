@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import EditableUserAvatar from '~/components/user/EditableUserAvatar'
+import EditableUserAvatar from '~/components/ui/EditableUserAvatar'
 
 export default {
   name: 'UserProfile',
