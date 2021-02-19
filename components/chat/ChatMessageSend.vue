@@ -15,25 +15,7 @@
 
 <script>
 import ChatButton from '~/components/ChatButton'
-
-const debouncer = (func, wait, immediate) => {
-  let timeout
-
-  return function () {
-    const context = this
-    const args = arguments
-    clearTimeout(timeout)
-    timeout = setTimeout(function () {
-      timeout = null
-      if (!immediate) {
-        func.apply(context, args)
-      }
-    }, wait)
-    if (immediate && !timeout) {
-      func.apply(context, args)
-    }
-  }
-}
+import debouncer from '~/plugins/debouncer'
 
 export default {
   name: 'ChatMessageInput',
