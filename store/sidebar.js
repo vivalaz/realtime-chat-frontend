@@ -5,14 +5,17 @@ export const state = () => ({
   selectedView: 'dialogs'
 })
 export const getters = {
-  isDialogsVisible (state) {
-    return state.selectedView === state.DIALOGS_VIEW
+  selectedViewIs (state) {
+    return key => state.selectedView === key
   },
-  isProfileVisible (state) {
-    return state.selectedView === state.PROFILE_VIEW
+  isDialogsVisible (state, getters) {
+    return getters.selectedViewIs(state.DIALOGS_VIEW)
   },
-  isSearchContactVisible (state) {
-    return state.selectedView === state.SEARCH_CONTACT_VIEW
+  isProfileVisible (state, getters) {
+    return getters.selectedViewIs(state.PROFILE_VIEW)
+  },
+  isSearchContactVisible (state, getters) {
+    return getters.selectedViewIs(state.SEARCH_CONTACT_VIEW)
   }
 }
 export const mutations = {

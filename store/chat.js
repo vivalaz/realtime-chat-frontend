@@ -39,7 +39,6 @@ export const actions = {
     commit('PUSH_TO_MESSAGES', message)
   },
   setOnlineUser ({ commit }, id) {
-    console.log('online id', id)
     commit('PUSH_TO_ONLINE_USERS', id)
   },
   removeOnlineUser ({ commit }, id) {

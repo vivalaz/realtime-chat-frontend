@@ -8,7 +8,7 @@
           @input="searchContacts"
         />
       </header>
-      <main>
+      <main v-if="!error">
         <DialogItem
           v-for="contact in contacts"
           :key="contact.id"
@@ -19,6 +19,8 @@
           @click.native="startChatWithContact(contact.id)"
         />
       </main>
+
+      <ServerError v-else :data="error" />
     </div>
   </perfect-scrollbar>
 </template>
@@ -27,6 +29,7 @@
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import { mapState, mapMutations } from 'vuex'
 import DialogItem from '~/components/sidebar/DialogItem'
+import ServerError from '~/components/ServerError'
 
 const debouncer = (func, wait, immediate) => {
   let timeout
@@ -50,6 +53,7 @@ const debouncer = (func, wait, immediate) => {
 export default {
   name: 'SidebarSearchContactsView',
   components: {
+    ServerError,
     DialogItem,
     PerfectScrollbar
   },
@@ -62,7 +66,8 @@ export default {
   },
   computed: {
     ...mapState('search-contacts', [
-      'contacts'
+      'contacts',
+      'error'
     ]),
     query: {
       get () {
