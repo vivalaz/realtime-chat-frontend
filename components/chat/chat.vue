@@ -110,7 +110,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 49px;
+    min-height: $chat-header-height;
     padding: 15px 1.875em 15px 1.875em;
     background-color: $dark-secondary-color;
 

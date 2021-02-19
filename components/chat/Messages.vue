@@ -57,6 +57,10 @@ export default {
 
 <style scoped lang="scss">
 
+.ps {
+  height: calc(100% - #{$chat-header-height});
+}
+
 .chat-messages {
   padding: 0.938em 1.875em 0 1.875em;
 
