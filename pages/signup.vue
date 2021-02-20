@@ -92,7 +92,7 @@ export default {
         this.error = null
         this.processing = true
 
-        const response = await this.$axios.post('user', {
+        const response = await this.$axios.post('/auth/signup', {
           email: this.email,
           password: this.password
         })

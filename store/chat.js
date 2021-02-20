@@ -46,7 +46,7 @@ export const actions = {
   },
   async getChats ({ commit }) {
     try {
-      const response = await this.$axios.$get('/chat/chats')
+      const response = await this.$axios.$get('/chats')
 
       if (response) {
         commit('SET_CHATS', response)
@@ -57,7 +57,7 @@ export const actions = {
   },
   async openChat ({ commit }, chatWithUserID) {
     try {
-      const response = await this.$axios.post(`/chat/open-chat/${chatWithUserID}`)
+      const response = await this.$axios.post(`/chats/${chatWithUserID}/open`)
 
       if (response && response.data) {
         commit('SET_MESSAGES', response.data)

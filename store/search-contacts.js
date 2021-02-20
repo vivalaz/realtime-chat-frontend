@@ -29,7 +29,7 @@ export const actions = {
       commit('SET_SEARCH_ERROR', null)
       commit('SET_PROCESSING_FLAG', true)
 
-      const response = await this.$axios.get('/user', {
+      const response = await this.$axios.get('/users', {
         params: {
           query: state.searchQuery
         }

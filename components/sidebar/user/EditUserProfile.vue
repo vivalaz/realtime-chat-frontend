@@ -65,7 +65,7 @@ export default {
       try {
         this.processing = true
 
-        const { data } = await this.$axios.put('user', {
+        const { data } = await this.$axios.put('users', {
           name: this.name,
           phone: this.phone,
           description: this.description

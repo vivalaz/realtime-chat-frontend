@@ -100,11 +100,11 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: '/user/login',
+            url: '/auth/login',
             method: 'post'
           },
           user: {
-            url: '/user/profile',
+            url: '/users/profile',
             method: 'get',
             propertyName: false
           },

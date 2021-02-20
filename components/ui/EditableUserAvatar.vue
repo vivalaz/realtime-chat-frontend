@@ -28,7 +28,7 @@ export default {
         const formData = new FormData()
         formData.append('file', file)
 
-        const response = await this.$axios.put('/user/update-photo', formData, {
+        const response = await this.$axios.put('/users/update-photo', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
