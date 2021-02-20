@@ -23,7 +23,7 @@
             </div>
           </template>
           <template v-else>
-            <div class="chat-manage-button" @click="cancelEditMessage">
+            <div class="chat-manage-button" @click="disableEditMode">
               Отменить редактирование
             </div>
           </template>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 
 export default {
   name: 'ChatContainer',
@@ -111,31 +111,37 @@ export default {
     })
     this.socket.on('chat::message-edited', (message) => {
       this.$store.dispatch('chat/updateMessage', message)
-      this.cancelEditMessage()
+      this.disableEditMode()
     })
   },
   methods: {
+    ...mapActions('chat', [
+      'getChats',
+      'addMessage',
+      'resetSelectedMessages'
+    ]),
+    ...mapActions('edit-message', [
+      'disableEditMode',
+      'activateEditMode'
+    ]),
     async updateMessages (data) {
-      this.$store.dispatch('chat/getChats')
-      await this.$store.dispatch('chat/addMessage', data)
+      this.getChats()
+      await this.addMessage(data)
 
       this.$nextTick(() => {
         document.querySelector('[data-type="messages"]').scrollIntoView(false)
       })
     },
     cancelSelect () {
-      return this.$store.dispatch('chat/resetSelectedMessages')
+      return this.resetSelectedMessages()
     },
     deleteMessages () {
       this.socket.emit('chat::delete-messages', this.selectedMessages)
     },
     editMessage () {
       if (this.selectedOnlyOneMessage) {
-        this.$store.dispatch('edit-message/activateEditMode', this.selectedMessages[0])
+        this.activateEditMode(this.selectedMessages[0])
       }
-    },
-    cancelEditMessage () {
-      this.$store.dispatch('edit-message/disableEditMode')
     }
   }
 }

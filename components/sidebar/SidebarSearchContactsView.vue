@@ -5,7 +5,7 @@
         <InputWithLabel
           v-model="query"
           placeholder="Вводите email контакта"
-          @input="searchContacts"
+          @input="onSearchContacts"
         />
       </header>
       <main v-if="!error">
@@ -27,7 +27,7 @@
 
 <script>
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import debouncer from '~/plugins/debouncer'
 
 export default {
@@ -57,14 +57,18 @@ export default {
     }
   },
   destroyed () {
-    this.$store.dispatch('search-contacts/resetSearchState')
+    this.resetSearchState()
   },
   methods: {
+    ...mapActions('search-contacts', [
+      'resetSearchState',
+      'searchContacts'
+    ]),
     ...mapMutations('search-contacts', [
       'UPDATE_SEARCH_QUERY'
     ]),
-    searchContacts: debouncer(function () {
-      return this.$store.dispatch('search-contacts/searchContacts')
+    onSearchContacts: debouncer(function () {
+      return this.searchContacts()
     }, process.env.debounceTimeout),
     startChatWithContact (id) {
       if (this.userSocket) {

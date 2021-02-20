@@ -45,13 +45,14 @@ export default {
     ])
   },
   beforeMount () {
-    this.$store.dispatch('chat/getChats')
+    this.getChats()
 
     this.socket.on('user::user-online', this.setOnlineUser)
     this.socket.on('user::user-offline', this.removeOnlineUser)
   },
   methods: {
     ...mapActions('chat', [
+      'getChats',
       'setOnlineUser',
       'removeOnlineUser'
     ]),
