@@ -7,8 +7,10 @@
         class="chat-message--wrapper"
         :class="{
           'my-message': user.uid === message.senderId,
-          'not-my-message': user.uid !== message.senderId
+          'not-my-message': user.uid !== message.senderId,
+          'selected': selectedMessages.includes(message.id)
         }"
+        @click="selectMessage(message.id)"
       >
         <div class="chat-message">
           <div class="data">
@@ -26,7 +28,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 
 export default {
@@ -36,7 +38,8 @@ export default {
   },
   computed: {
     ...mapState('chat', [
-      'messages'
+      'messages',
+      'selectedMessages'
     ]),
     user () {
       return this.$store.state.auth.user
@@ -48,6 +51,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions('chat', [
+      'selectMessage'
+    ]),
     getDate (timestamp) {
       return this.$dateFns.formatRelative(timestamp, new Date())
     }
@@ -96,6 +102,8 @@ export default {
     &--wrapper {
       display: flex;
       margin: 0.313em 0;
+      border-radius: 0.125em;
+      cursor: pointer;
 
       &.my-message {
         justify-content: flex-end;
@@ -121,6 +129,13 @@ export default {
             border-top: $speech-arrow-size solid $dark-secondary-color;
             border-left: $speech-arrow-size solid transparent;
           }
+        }
+      }
+      &.selected {
+        background-color: rgba(#fff, .02);
+
+        .chat-message {
+          opacity: .8;
         }
       }
     }

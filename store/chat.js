@@ -1,7 +1,8 @@
 export const state = () => ({
   chats: [],
   messages: [],
-  onlineUsers: []
+  onlineUsers: [],
+  selectedMessages: []
 })
 export const getters = {
   getActiveChatInfo: state => (key) => {
@@ -18,6 +19,13 @@ export const mutations = {
   PUSH_TO_MESSAGES (state, payload) {
     state.messages.push(payload)
   },
+  REMOVE_FROM_MESSAGES (state, id) {
+    const idx = state.messages.findIndex(msg => msg.id === id)
+
+    if (idx > -1) {
+      state.messages.splice(idx, 1)
+    }
+  },
   PUSH_TO_ONLINE_USERS (state, payload) {
     if (Array.isArray(payload)) {
       state.onlineUsers.push(...payload)
@@ -31,6 +39,15 @@ export const mutations = {
     if (idx > -1) {
       state.onlineUsers.splice(idx, 1)
     }
+  },
+  SELECT_DESELECT_MESSAGE (state, id) {
+    const idx = state.selectedMessages.indexOf(id)
+
+    if (idx > -1) {
+      state.selectedMessages.splice(idx, 1)
+    } else {
+      state.selectedMessages.push(id)
+    }
   }
 }
 export const middleware = {}
@@ -43,6 +60,17 @@ export const actions = {
   },
   removeOnlineUser ({ commit }, id) {
     commit('REMOVE_FROM_ONLINE_USERS', id)
+  },
+  selectMessage ({ commit }, messageId) {
+    if (messageId) {
+      commit('SELECT_DESELECT_MESSAGE', messageId)
+    }
+  },
+  deleteMessages ({ commit }, messages = []) {
+    messages.forEach((message) => {
+      commit('SELECT_DESELECT_MESSAGE', message)
+      commit('REMOVE_FROM_MESSAGES', message)
+    })
   },
   async getChats ({ commit }) {
     try {

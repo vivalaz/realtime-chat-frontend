@@ -2,7 +2,7 @@
   <div class="chat">
     <header>
       <div class="user-info">
-        <template v-if="activeChat">
+        <template v-if="activeChat && !selectedMessages.length">
           <div class="name">
             {{ activeChat.with.displayName }}
           </div>
@@ -10,9 +10,17 @@
             Онлайн
           </div>
         </template>
+        <div v-else-if="activeChat && selectedMessages.length" class="message-controls">
+          <div class="chat-manage-button" @click="deleteMessages">
+            Удалить
+          </div>
+          <div v-if="selectedOnlyOneMessage" class="chat-manage-button" @click="editMessage">
+            Редактировать
+          </div>
+        </div>
       </div>
 
-      <NuxtLink to="/" class="close-smart-button">
+      <NuxtLink to="/" class="chat-manage-button">
         Закрыть чат
       </NuxtLink>
     </header>
@@ -44,7 +52,8 @@ export default {
   },
   computed: {
     ...mapState('chat', [
-      'onlineUsers'
+      'onlineUsers',
+      'selectedMessages'
     ]),
     ...mapGetters('chat', [
       'getActiveChatInfo'
@@ -52,6 +61,9 @@ export default {
 
     activeChat () {
       return this.getActiveChatInfo(this.$route.params.chat)
+    },
+    selectedOnlyOneMessage () {
+      return this.selectedMessages.length === 1
     }
   },
   beforeMount () {
@@ -80,6 +92,10 @@ export default {
     this.socket.on('chat::cancel-typing', () => {
       this.isTyping = false
     })
+
+    this.socket.on('chat::messages-deleted', (ids = []) => {
+      this.$store.dispatch('chat/deleteMessages', ids)
+    })
   },
   methods: {
     async updateMessages (data) {
@@ -89,6 +105,14 @@ export default {
       this.$nextTick(() => {
         document.querySelector('[data-type="messages"]').scrollIntoView(false)
       })
+    },
+    deleteMessages () {
+      this.socket.emit('chat::delete-messages', this.selectedMessages)
+    },
+    editMessage () {
+      if (this.selectedOnlyOneMessage) {
+        console.log('edit msg', this.selectedMessages[0])
+      }
     }
   }
 }
@@ -126,7 +150,16 @@ export default {
       }
     }
 
-    .close-smart-button {
+    .message-controls {
+      display: flex;
+      align-items: center;
+
+      .chat-manage-button:not(:last-child) {
+        margin-right: .625em;
+      }
+    }
+
+    .chat-manage-button {
       border-radius: 0.3125em;
       padding: 0.5em 0.825em;
       background-color: $dark-accent-color;
