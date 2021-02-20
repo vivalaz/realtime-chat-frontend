@@ -3,7 +3,7 @@
     <div data-type="messages" class="chat-messages">
       <div
         v-for="message in messages"
-        :key="message.timestamp"
+        :key="message.updatedAt || message.timestamp"
         class="chat-message--wrapper"
         :class="{
           'my-message': user.uid === message.senderId,
@@ -18,7 +18,12 @@
           </div>
           <footer>
             <div class="time">
-              {{ getDate(message.timestamp) }}
+              <template v-if="message.updatedAt">
+                изменено {{ getDate(message.updatedAt) }}
+              </template>
+              <template v-else>
+                {{ getDate(message.timestamp) }}
+              </template>
             </div>
           </footer>
         </div>

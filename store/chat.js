@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export const state = () => ({
   chats: [],
   messages: [],
@@ -48,6 +50,16 @@ export const mutations = {
     } else {
       state.selectedMessages.push(id)
     }
+  },
+  RESET_SELECTED_MESSAGES (state) {
+    state.selectedMessages = []
+  },
+  UPDATE_MESSAGE (state, message) {
+    const idx = state.messages.findIndex(msg => msg.id === message.id)
+
+    if (idx > -1) {
+      Vue.set(state.messages, idx, message)
+    }
   }
 }
 export const middleware = {}
@@ -66,11 +78,18 @@ export const actions = {
       commit('SELECT_DESELECT_MESSAGE', messageId)
     }
   },
+  resetSelectedMessages ({ commit }) {
+    commit('RESET_SELECTED_MESSAGES')
+  },
   deleteMessages ({ commit }, messages = []) {
     messages.forEach((message) => {
       commit('SELECT_DESELECT_MESSAGE', message)
       commit('REMOVE_FROM_MESSAGES', message)
     })
+  },
+  updateMessage ({ commit }, message) {
+    commit('UPDATE_MESSAGE', message)
+    commit('RESET_SELECTED_MESSAGES')
   },
   async getChats ({ commit }) {
     try {

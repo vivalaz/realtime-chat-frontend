@@ -11,12 +11,22 @@
           </div>
         </template>
         <div v-else-if="activeChat && selectedMessages.length" class="message-controls">
-          <div class="chat-manage-button" @click="deleteMessages">
-            Удалить
-          </div>
-          <div v-if="selectedOnlyOneMessage" class="chat-manage-button" @click="editMessage">
-            Редактировать
-          </div>
+          <template v-if="!editMessageEnabled">
+            <div class="chat-manage-button" @click="cancelSelect">
+              Отмена
+            </div>
+            <div class="chat-manage-button" @click="deleteMessages">
+              Удалить
+            </div>
+            <div v-if="selectedOnlyOneMessage" class="chat-manage-button" @click="editMessage">
+              Редактировать
+            </div>
+          </template>
+          <template v-else>
+            <div class="chat-manage-button" @click="cancelEditMessage">
+              Отменить редактирование
+            </div>
+          </template>
         </div>
       </div>
 
@@ -58,6 +68,9 @@ export default {
     ...mapGetters('chat', [
       'getActiveChatInfo'
     ]),
+    ...mapGetters('edit-message', [
+      'editMessageEnabled'
+    ]),
 
     activeChat () {
       return this.getActiveChatInfo(this.$route.params.chat)
@@ -96,6 +109,10 @@ export default {
     this.socket.on('chat::messages-deleted', (ids = []) => {
       this.$store.dispatch('chat/deleteMessages', ids)
     })
+    this.socket.on('chat::message-edited', (message) => {
+      this.$store.dispatch('chat/updateMessage', message)
+      this.cancelEditMessage()
+    })
   },
   methods: {
     async updateMessages (data) {
@@ -106,13 +123,19 @@ export default {
         document.querySelector('[data-type="messages"]').scrollIntoView(false)
       })
     },
+    cancelSelect () {
+      return this.$store.dispatch('chat/resetSelectedMessages')
+    },
     deleteMessages () {
       this.socket.emit('chat::delete-messages', this.selectedMessages)
     },
     editMessage () {
       if (this.selectedOnlyOneMessage) {
-        console.log('edit msg', this.selectedMessages[0])
+        this.$store.dispatch('edit-message/activateEditMode', this.selectedMessages[0])
       }
+    },
+    cancelEditMessage () {
+      this.$store.dispatch('edit-message/disableEditMode')
     }
   }
 }
@@ -188,6 +211,7 @@ export default {
       font-size: 14px;
     }
   }
+
 }
 
 </style>
