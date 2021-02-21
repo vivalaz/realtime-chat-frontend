@@ -2,7 +2,7 @@
   <div class="chat-container">
     <Sidebar v-if="isVisibleSidebar" />
 
-    <div class="dialog-container">
+    <div v-if="isDialogContainerVisibleOnTablets" class="dialog-container">
       <Nuxt />
     </div>
   </div>
@@ -14,6 +14,9 @@ import Sidebar from '~/components/sidebar/Sidebar'
 export default {
   components: { Sidebar },
   computed: {
+    isDialogContainerVisibleOnTablets () {
+      return this.$route.params.chat || this.$mq === 'lg'
+    },
     isVisibleSidebar () {
       if (this.$mq === 'lg') {
         return true

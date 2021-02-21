@@ -173,6 +173,7 @@ export default {
   background-color: $dark-accent-color;
 
   header {
+    position: sticky;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -222,7 +223,10 @@ export default {
   }
 
   footer {
-    position: relative;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     padding: 0.938em 1.875em 0.938em 1.875em;
 
     .typing-wrapper {

@@ -97,11 +97,16 @@ export default {
   top: 0;
   left: 0;
   max-width: 320px;
+  width: 100%;
   min-width: 320px;
   height: 100%;
   background-color: $dark-accent-color;
   border-right: 3px solid $dark-secondary-color;
   overflow: hidden;
+
+  @media only screen and (max-width: 768px) {
+    max-width: none;
+  }
 
   .ps {
     height: calc(100% - #{$sidebar-footer-height} - #{$sidebar-header-height});

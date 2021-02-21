@@ -35,7 +35,9 @@ export default {
       if ($event.keyCode === 13 || $event.key === 'Enter') {
         $event.preventDefault()
 
-        this.sendMessage()
+        if (this.message) {
+          this.sendMessage()
+        }
 
         return true
       } else {
