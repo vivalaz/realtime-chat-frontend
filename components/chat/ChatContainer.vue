@@ -21,7 +21,7 @@
             <div class="chat-manage-button" @click="deleteMessages">
               Удалить
             </div>
-            <div v-if="selectedOnlyOneMessage" class="chat-manage-button" @click="editMessage">
+            <div v-if="selectedOnlyOneMessage && userCanEditMessage" class="chat-manage-button" @click="editMessage">
               Редактировать
             </div>
           </template>
@@ -71,17 +71,28 @@ export default {
       'selectedMessages'
     ]),
     ...mapGetters('chat', [
-      'getActiveChatInfo'
+      'getActiveChatInfo',
+      'getEditableMessage'
     ]),
     ...mapGetters('edit-message', [
       'editMessageEnabled'
     ]),
+
+    user () {
+      return this.$store.state.auth.user
+    },
 
     activeChat () {
       return this.getActiveChatInfo(this.$route.params.chat)
     },
     selectedOnlyOneMessage () {
       return this.selectedMessages.length === 1
+    },
+    userCanEditMessage () {
+      if (!this.selectedOnlyOneMessage) {
+        return true
+      }
+      return this.getEditableMessage(this.selectedMessages[0]).senderId === this.user.uid
     }
   },
   beforeMount () {

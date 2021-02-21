@@ -3,8 +3,8 @@ export const state = () => ({
   newMessageContent: ''
 })
 export const getters = {
-  getEditableMessage (state, getters, rootState) {
-    return rootState.chat.messages.find(msg => msg.id === state.messageId)
+  getEditableMessage (state, getters, rootState, rootGetters) {
+    return rootGetters['chat/getEditableMessage'](state.messageId)
   },
   editMessageEnabled (state) {
     return !!state.messageId

@@ -9,6 +9,11 @@ export const state = () => ({
 export const getters = {
   getActiveChatInfo: state => (key) => {
     return state.chats.find(chat => chat.id === key)
+  },
+  getEditableMessage (state) {
+    return (id) => {
+      return state.messages.find(msg => msg.id === id)
+    }
   }
 }
 export const mutations = {
