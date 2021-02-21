@@ -96,7 +96,7 @@ export default {
   position: relative;
   top: 0;
   left: 0;
-  width: 20%;
+  max-width: 320px;
   min-width: 320px;
   height: 100%;
   background-color: $dark-accent-color;

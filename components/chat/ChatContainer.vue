@@ -1,5 +1,8 @@
 <template>
   <div class="chat">
+    <audio :id="msgReceivedAudioId" src="~/assets/sound/message_received.mp3" />
+    <audio :id="msgSentAudioId" src="~/assets/sound/message_sent.mp3" />
+
     <header>
       <div class="user-info">
         <template v-if="activeChat && !selectedMessages.length">
@@ -57,7 +60,9 @@ export default {
   data () {
     return {
       socket: null,
-      isTyping: false
+      isTyping: false,
+      msgReceivedAudioId: 'message-received-audio',
+      msgSentAudioId: 'message-sent-audio'
     }
   },
   computed: {
@@ -92,12 +97,16 @@ export default {
     this.socket.on('chat::receive-message', async (data) => {
       this.isTyping = false
 
+      this.playAudio(this.msgReceivedAudioId)
       await this.updateMessages(data)
 
       this.$webNotification.notify('Получено новое сообщение!', data)
     })
 
-    this.socket.on('chat::message-sent', this.updateMessages)
+    this.socket.on('chat::message-sent', (data) => {
+      this.playAudio(this.msgSentAudioId)
+      this.updateMessages(data)
+    })
 
     this.socket.on('chat::typing', () => {
       this.isTyping = true
@@ -124,6 +133,13 @@ export default {
       'disableEditMode',
       'activateEditMode'
     ]),
+    playAudio (id) {
+      const $node = document.getElementById(id)
+
+      if ($node) {
+        $node.play()
+      }
+    },
     async updateMessages (data) {
       this.getChats()
       await this.addMessage(data)
