@@ -69,7 +69,7 @@ export default {
 <style scoped lang="scss">
 
 .ps {
-  height: calc(100% - #{$chat-header-height});
+  height: calc(100% - #{$chat-header-height} - #{$chat-footer-height});
 }
 
 .chat-messages {
