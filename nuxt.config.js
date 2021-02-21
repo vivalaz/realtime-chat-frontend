@@ -40,6 +40,9 @@ export default {
     },
     {
       src: '~/plugins/web-notification'
+    },
+    {
+      src: '~/plugins/vue-mq'
     }
   ],
 

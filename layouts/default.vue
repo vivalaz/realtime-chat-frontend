@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <Sidebar />
+    <Sidebar v-if="isVisibleSidebar" />
 
     <div class="dialog-container">
       <Nuxt />
@@ -13,6 +13,15 @@ import Sidebar from '~/components/sidebar/Sidebar'
 
 export default {
   components: { Sidebar },
+  computed: {
+    isVisibleSidebar () {
+      if (this.$mq === 'lg') {
+        return true
+      }
+
+      return this.$mq === 'sm' && !this.$route.params.chat
+    }
+  },
   mounted () {
     this.$webNotification.requestPermission()
   }
@@ -26,6 +35,7 @@ export default {
   max-width: 1280px;
   margin: 0 auto;
   height: 100vh;
+  overflow: hidden;
 
   .dialog-container {
     width: 100%;

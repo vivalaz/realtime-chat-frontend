@@ -18,6 +18,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 1em;
   height: 100%;
   background-color: $dark-accent-color;
 
